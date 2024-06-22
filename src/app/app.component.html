@@ -1,0 +1,22 @@
+<header>
+  <app-navbar (menuClicked)="drawer.toggle()"></app-navbar>
+</header>
+<mat-sidenav-container class="sidemenu-container Site-content" autosize>
+  <mat-sidenav #drawer class="sidemenu-sidenav" mode="over"
+  [fixedInViewport]="true" position="end">
+    <app-sidenav (routeSelected)="drawer.close()"></app-sidenav>
+  </mat-sidenav>
+  <div class="main-container">
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</mat-sidenav-container>
+<footer>
+  <ul class="footer-ul">
+    <li><a href="/privacy">Privacy</a></li>
+    <li><a href="/terms">Terms</a></li>
+    <li><a href="https://github.com/uiuc-mcs/uiuc-mcs">GitHub</a></li>
+  </ul>
+  <span class="copyright">© {{currentYear}} {{properName}}</span>
+</footer>

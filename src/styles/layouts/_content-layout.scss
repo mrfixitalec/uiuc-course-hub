@@ -1,0 +1,108 @@
+*,
+::before,
+::after {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f7f7f7;
+    margin: 0;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    padding: $main-pad-above $main-pad-side 2rem;
+    @media (max-width: $bp-tiny) {
+        padding: $main-pad-above-mobile $main-pad-side-mobile 2rem;
+    }
+}
+
+.Site {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.Site-content {
+    flex: 1;
+}
+
+.main-container {
+    width: 100%;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+@media (max-width: $bp-tiny) {
+    #mat1 > .mat-form-field-wrapper {
+        padding-bottom: 1em;
+    }
+
+    #mat2 > .mat-form-field-wrapper {
+        padding-bottom: 1em;
+    }
+}
+
+.basic-container {
+    &.slim {
+        max-width: 450px;
+    }
+    &.col-form {
+        width: 100%;
+        .mat-card {
+            max-width: 900px;
+            padding: 56px 48px;
+            width: 100%;
+            @media (max-width: $bp-tiny) {
+                padding: 36px 36px;
+            }
+        }
+        .mat-error {
+            font-size: 88%;
+        }
+        .mat-card-content {
+            margin-bottom: 0;
+        }
+    }
+}
+
+form {
+    .form-row {
+        margin-top: 1.5rem;
+        width: 100%;
+    }
+    label,
+    .forgot-pass {
+        font-size: 0.875rem;
+        cursor: pointer;
+    }
+}
+
+@media (max-width: $bp-tiny) {
+    form .form-row {
+        margin-top: 1rem;
+        width: 100%;
+    }
+}
+
+.full-width-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    .mat-form-field,
+    button {
+        width: 100%;
+    }
+}
+
+.restrict-width {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}

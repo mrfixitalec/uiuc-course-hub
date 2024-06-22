@@ -1,0 +1,154 @@
+.hide-under-xs {
+    @media (max-width: 500px) {
+        display: none;
+    }
+}
+.rev-card-header {
+    display: flex;
+    @media (max-width: 600px) {
+        padding-left: 0;
+    }
+
+    .left {
+        display: inherit;
+        mat-chip-list {
+            margin-left: 10px;
+        }
+        @media (max-width: 600px) {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            mat-chip-list {
+                margin-left: 0;
+            }
+        }
+    }
+
+    .card-header-buttons {
+        margin-left: auto;
+        display: flex;
+        @media (max-width: 600px) {
+            flex-direction: column;
+        }
+    }
+
+    .rev-course {
+        font-weight: 500;
+        font-size: 1.25rem;
+    }
+}
+
+.mat-card-content {
+    padding: 16px;
+    // padding-bottom: 0px;
+    @media (max-width: 600px) {
+        // padding: 12px 0px 12px 0px;
+        padding: 0
+    }
+}
+
+.content {
+    &:not(:first-child) {
+        margin-top: 20px;
+    }
+}
+
+.mat-card-footer {
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+}
+
+.rev-header {
+    display: inline-flex;
+    width: 100%;
+    .edit-buttons {
+        margin-left: auto;
+    }
+}
+
+.review-body {
+    white-space: pre-line;
+}
+
+.rev-title {
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.rev-subtitle {
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.mat-card {
+    margin: 0px 0px 10px 0px;
+}
+
+.rating-grid {
+    display: grid;
+    @media (min-width: 575px) {
+        grid-template-columns: 100px 150px 100px 150px;
+        grid-auto-rows: 30px;
+    }
+    @media (max-width: 575px) {
+        grid-template-columns: 150px 150px;
+        grid-auto-rows: 30px;
+    }
+    padding-top: 10px;
+}
+
+.chip-outlined {
+    font-size: 13px;
+    border: 1px solid rgba(0, 0, 0, 0.23);
+    background-color: transparent;
+    opacity: 1 !important;
+    font-weight: 400;
+}
+
+$vbad: #d32f2f;
+$bad: #fb8c00;
+$medium: #ffcc80;
+$good: #66bb6a;
+$vgood: #1b5e20;
+
+.diff_5 {
+    color: $vbad;
+    border-color: $vbad;
+}
+.diff_4 {
+    color: $bad;
+    border-color: $bad;
+}
+.diff_3 {
+    color: $medium;
+    border-color: $medium;
+}
+.diff_2 {
+    color: $good;
+    border-color: $good;
+}
+.diff_1 {
+    color: $vgood;
+    border-color: $vgood;
+}
+
+.rat_1 {
+    color: $vbad;
+    border-color: $vbad;
+}
+.rat_2 {
+    color: $bad;
+    border-color: $bad;
+}
+.rat_3 {
+    color: $medium;
+    border-color: $medium;
+}
+.rat_4 {
+    color: $good;
+    border-color: $good;
+}
+.rat_5 {
+    color: $vgood;
+    border-color: $vgood;
+}

@@ -1,0 +1,62 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+  <div class="col-form basic-container slim">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Create your account</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form fxLayout="column" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <mat-form-field appearance="outline" floatLabel="auto">
+            <mat-label>First Name</mat-label>
+            <input matInput placeholder="First Name" formControlName="firstName"
+              [ngClass]="{'is-invalid': submitted && f.firstName.errors}">
+            <mat-error *ngIf="f.firstName.errors">
+              Please enter your first name. It will not be shown publicly.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" floatLabel="auto">
+            <mat-label>Last Name</mat-label>
+            <input matInput placeholder="Last Name" formControlName="lastName"
+              [ngClass]="{'is-invalid': submitted && f.lastName.errors}">
+            <mat-error *ngIf="f.lastName.errors">
+              Please enter your last name. It will never be shown publicly.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" floatLabel="auto">
+            <mat-label>UIUC Email</mat-label>
+            <input matInput id="email" autocomplete="email" placeholder="UIUC Email" formControlName="email"
+              [ngClass]="{'is-invalid': submitted && f.email.errors}" type="email" name="email">
+            <mat-error *ngIf="f.email.errors">
+              Please enter a valid @illinois.edu email.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" floatLabel="auto">
+            <mat-label>Password</mat-label>
+            <input matInput autocomplete="new-password" id="password" minlength="6" name="password" type="password"
+              formControlName="password" [ngClass]="{'is-invalid': submitted && f.email.errors}" placeholder="Password">
+            <mat-error *ngIf="f.password.errors">
+              Your password must be at least 6 characters.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" floatLabel="auto">
+            <mat-label>When was your first semester?</mat-label>
+            <mat-select formControlName="firstSemester">
+              <mat-option [value]="semester" *ngFor="let semester of semesters">
+                {{semester}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="f.firstSemester.errors">
+              Please select your first semester.
+            </mat-error>
+          </mat-form-field>
+          <div *ngIf="error" class="alert">{{error}}</div>
+          <button mat-raised-button color="primary" class="create-btn">Create account</button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

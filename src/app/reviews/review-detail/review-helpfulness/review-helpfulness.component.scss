@@ -1,0 +1,27 @@
+.helpful-container{
+  display: flex;
+  align-items: center;
+
+  .helpful-label {
+    padding-right: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .helpful-vote-container {
+      font-size: 10px;
+
+      .helpful-vote-positive {
+        color: green;
+      }
+
+      .helpful-vote-negative {
+        color: red;
+      }
+    }
+  }
+}
+.mat-button-toggle {
+    color: inherit;
+    font-size: 13px;
+}

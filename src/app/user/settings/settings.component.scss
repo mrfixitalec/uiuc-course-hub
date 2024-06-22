@@ -1,0 +1,53 @@
+.font-override {
+    color: #262626;
+}
+
+mat-form-field {
+    width: 100%;
+    margin-top: 12px;
+}
+
+mat-card-title {
+    align-self: center;
+}
+    
+mat-card-content {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+         
+.no-reviews-button {
+    display: block;
+    margin: auto;
+}
+
+.mat-card {
+    max-width: 450px;
+    width: 100%;
+    padding: 16px;
+}
+
+mat-card-header > button,
+mat-card-header > div > button {
+  margin-top: -10px;
+}
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    button {
+        transition: none;
+    }
+    button:not(:last-child) {
+        margin-right: .5rem;
+    }
+}
+
+.list-buttons {
+    display: flex;
+}
+
+// .user-reviews-card-content {
+//     text-align: center;
+// }

@@ -1,0 +1,21 @@
+// // import bootstrap
+// @import '~bootstrap/dist/css/bootstrap.min.css';
+
+// import global themes
+// @import './ng-io-theme';
+
+// global constants
+@import './constants.scss';
+
+// mixins
+@import './mixins.scss';
+
+// base layouts
+@import './layouts/layouts-dir';
+
+// theme
+@import './_theme.scss';
+
+.select-no-max-height {
+    max-height: none !important;
+}
