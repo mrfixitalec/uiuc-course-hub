@@ -1,11 +1,11 @@
 {
-  "name": "uiuc-mcs-org",
+  "name": "uiuc-course-hub",
   "version": "0.0.0",
   "scripts": {
     "start": "ng serve",
     "build": "ng build",
-    "deploy": "ng deploy && gh-pages -d dist/uiuc-mcs-org -r git@github.com:uiuc-mcs/uiuc-mcs.git -p 4 -t",
-    "deploy-uiuc-mcs": "ng build --configuration=uiuc-mcs && ng deploy --base-href=https://uiucmcs.org --cname=uiucmcs.org --repo=git@github.com:uiuc-mcs/uiuc-mcs.git --no-build"
+    "deploy": "ng deploy && gh-pages -d dist/uiuc-course-hub -r git@github.com:mrfixitalec/uiuc-course-hub.git -p 4 -t",
+    "deploy-uiuc-course-hub": "ng build --configuration=uiuc-course-hub && ng deploy --base-href=https://uiuc-course-hub.firebaseapp.com --cname=uiuc-course-hub.firebaseapp.com --repo=git@github.com:mrfixitalec/uiuc-course-hub.git --no-build"
   },
   "private": true,
   "dependencies": {
