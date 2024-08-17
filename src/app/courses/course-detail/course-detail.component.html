@@ -12,7 +12,7 @@
         <h1 class="white">{{courseName}}</h1>
         <h2 class="white">{{courseNumber}}</h2>
         <mat-chip-list>
-          <mat-chip [disableRipple]="true" class="chip-hover-disabled" *ngFor="let cat of course?.category">{{cat}}
+          <mat-chip [disableRipple]="true" class="chip-hover-disabled" *ngFor="let cat of course?.Department">{{cat}}
           </mat-chip>
           <mat-chip [disableRipple]="true" class="chip-hover-disabled" *ngFor="let lang of course?.languages">{{lang}}
             <mat-icon svgIcon="icons:check">

@@ -5,19 +5,29 @@ export const mcsdsCategories = [
   "Data Visualization", "Cloud Computing"
 ]
 
-export const mcsCategories = [
-  "MCS Advanced", "MCS Elective", "Artificial Intelligence",
-  "Database and Information Systems", "Graphics/HCI", "Parallel Computing",
-  "Programming Languages & Software Engineering", "Security and Privacy", 
-  "Scientific Computing", "Systems and Networking"
+export const departments = [
+  "AAS", "ABE", "ACCY", "ACE", "ACES", "ADV", "AE", "AFAS", "AFRO", "AFST", "AGCM", 
+  "AGED", "AHS", "AIS", "ALEC", "ANSC", "ANTH", "ARAB", "ARCH", "ART", "ARTD", "ARTE", 
+  "ARTF", "ARTH", "ARTJ", "ARTS", "ASRM", "ASST", "ASTR", "ATMS", "BADM", "BASQ", "BCOG", 
+  "BCS", "BDI", "BIOC", "BIOE", "BIOP", "BSE", "BTW", "BUS", "CB", "CDB", "CEE", "CHBE", 
+  "CHEM", "CHIN", "CHP", "CI", "CIC", "CLCV", "CLE", "CMN", "CPSC", "CS", "CSE", "CW", "CWL", 
+  "CZCH", "DANC", "DTX", "EALC", "ECE", "ECON", "EDPR", "EDUC", "EIL", "ENG", "ENGL", "ENSU", 
+  "ENVS", "EPOL", "EPSY", "ERAM", "ESE", "ESL", "ETMA", "EURO", "FAA", "FIN", "FLTE", "FR", 
+  "FSHN", "GC", "GEOL", "GER", "GGIS", "GLBL", "GMC", "GRK", "GRKM", "GS", "GSD", "GWS", 
+  "HDFS", "HEBR", "HIST", "HK", "HNDI", "HORT", "HT", "HUM", "IB", "IE", "INFO", "IS", 
+  "ITAL", "JAPN", "JOUR", "JS", "KOR", "LA", "LAS", "LAST", "LAT", "LAW", "LCTL", "LEAD",
+  "LER", "LING", "LLS", "MACS", "MATH", "MBA", "MCB", "MDIA", "MDVL", "ME", "MICR", "MILS",
+  "MIP", "MSE", "MUS", "MUSC", "MUSE", "NE", "NEUR", "NPRE", "NRES", "NS", "NUTR", "PATH",
+  "PERS", "PHIL", "PHYS", "PLPA", "POL", "PORT", "PS", "PSM", "PSYC", "QUEC", "REES", "REL",
+  "RHET", "RMLG", "RST", "RUSS", "SAME", "SBC", "SCAN", "SE", "SHS", "SLAV", "SLCL", "SOC", 
+  "SOCW", "SPAN", "SPED", "STAT", "SWAH", "TAM", "TE", "THEA", "TMGT", "TRST", "TURK", "UKR", 
+  "UP", "VCM", "VM", "WLOF", "WRIT", "YDSH"
 ]
 
 export const courseCategories = Array.from(
-  new Set<string>(mcsCategories.concat(mcsdsCategories)))
+  new Set<string>(departments.concat(mcsdsCategories)))
 
-export const courseLanguages = ["C", "C++", "JavaScript", "Kotlin", "GoLang",
-  "MATLAB", "Python", "R", "Rust", "No Code"
-] as const
+export const courseLanguages = ["No longer using languages"] as const
 
 const firstYear = 2014 // When was the first semester and year?
 const currentYear = (new Date()).getFullYear()
@@ -73,7 +83,7 @@ export interface ClassData {
   SampleSyllabus: string,
   WorkloadAvg: number,
   WorkloadCount: number,
-  category: string[] | null,
+  Department: string[] | null,
   languages: string[] | null,
   lastUpdated: Timestamp,
   season: {

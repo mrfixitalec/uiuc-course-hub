@@ -1,36 +1,58 @@
 <div class="course-list-container">
-  <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center"
-   class="filter-container">
-    <div class="filter">
-      <mat-form-field appearance="fill">
-        <mat-label>MCS Requirements Filter</mat-label>
-        <mat-select [(value)]="mcsValue" panelClass="select-no-max-height">
-          <mat-option *ngFor="let opt of mcsOptions" [value]="opt.value" (click)="onFilterOptionClick(false)">
-            {{opt.view}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="filter">
-      <mat-form-field appearance="fill">
-        <mat-label>MCS-DS Requirements Filter</mat-label>
-        <mat-select [(value)]="mcsdsValue" panelClass="select-no-max-height">
-          <mat-option *ngFor="let opt of mcsdsOptions" [value]="opt.value" (click)="onFilterOptionClick(true)">
-            {{opt.view}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="filter">
-      <mat-form-field appearance="fill">
-        <mat-label>Semester Filter</mat-label>
-        <mat-select [(value)]="semesterValue" panelClass="select-no-max-height">
-          <mat-option *ngFor="let opt of semesterOptions" [value]="opt.value" 
-          (click)="onSemesterFilterClick()">
-            {{opt.view}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+  <div class="scrollable-filters">
+    <div
+      fxLayout="row"
+      fxLayout.xs="column"
+      fxLayoutAlign="start center"
+      class="filter-container"
+    >
+      <div class="filter">
+        <mat-form-field appearance="fill">
+          <mat-label>Department Filter</mat-label>
+          <mat-select [(value)]="deptValue" panelClass="custom-select-panel">
+            <mat-option
+              *ngFor="let opt of deptOptions"
+              [value]="opt.value"
+              (click)="onFilterOptionClick(false)"
+            >
+              {{ opt.view }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      
+<!--       <div class="filter">
+        <mat-form-field appearance="fill">
+          <mat-label>MCS-DS Requirements Filter</mat-label>
+          <mat-select
+            [(value)]="mcsdsValue"
+            panelClass="custom-select-panel"
+          >
+            <mat-option
+              *ngFor="let opt of mcsdsOptions"
+              [value]="opt.value"
+              (click)="onFilterOptionClick(true)"
+            >
+              {{ opt.view }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div> -->
+
+      <div class="filter">
+        <mat-form-field appearance="fill">
+          <mat-label>Semester Filter</mat-label>
+          <mat-select [(value)]="semesterValue" panelClass="select-no-max-height">
+            <mat-option
+              *ngFor="let opt of semesterOptions"
+              [value]="opt.value"
+              (click)="onSemesterFilterClick()"
+            >
+              {{ opt.view }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     </div>
   </div>
   <div class="table-container mat-elevation-z1">

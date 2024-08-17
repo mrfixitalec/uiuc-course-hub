@@ -7,9 +7,9 @@
       <br>
       <form class="user-edit-form" [formGroup]="editForm" (ngSubmit)="onSubmit()">
         <mat-form-field class="form-field-full-width">
-          <mat-label>Category</mat-label>
-          <mat-select formControlName="category" multiple required>
-            <mat-option *ngFor="let category of categories" [value]="category">{{category | titlecase}}</mat-option>
+          <mat-label>Department</mat-label>
+          <mat-select formControlName="Department" multiple required>
+            <mat-option *ngFor="let Department of categories" [value]="Department">{{Department | titlecase}}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-checkbox id="spring" formControlName="seasonSpring"

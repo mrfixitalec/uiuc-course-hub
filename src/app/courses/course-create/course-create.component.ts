@@ -21,8 +21,9 @@ export class CreateCourseComponent implements OnInit {
     ) {
     }
     classFields = [
-        { field: 'ClassName', display: 'Class Name' },
-        { field: 'CourseNumber', display: 'Course Number' },
+        { field: 'ClassName', display: 'Class Name, e.g. `Plant Genetics`' },
+        { field: 'CourseNumber', display: 'Course Number, e.g. `CPSC 352`' },
+        { field: 'Department', display: 'Department, e.g. `CPSC`'},
         { field: 'GraphicUrl', display: 'Graphic URL (from course page - url(https://...) )' },
     ]
 
@@ -37,7 +38,7 @@ export class CreateCourseComponent implements OnInit {
             RatingCount: [0, Validators.required],
             WorkloadAvg: [0, Validators.required],
             WorkloadCount: [0, Validators.required],
-            category: ['', Validators.required],
+            Department: ['', Validators.required],
             languages: ['', Validators.required],
             seasonSpring: [false, Validators.required],
             seasonSummer: [false, Validators.required],
@@ -68,7 +69,7 @@ export class CreateCourseComponent implements OnInit {
             RatingCount: this.f.RatingCount.value,
             WorkloadAvg: this.f.WorkloadAvg.value,
             WorkloadCount: this.f.WorkloadCount.value,
-            category: [],
+            Department: [],
             languages: [],
             season: {
                 spring: this.f.seasonSpring.value === "true",

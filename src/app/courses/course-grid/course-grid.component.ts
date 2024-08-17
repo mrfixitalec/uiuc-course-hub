@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClassService } from 'src/app/services/classes/class.service';
-import { getRouterLink, ClassData, mcsdsCategories, mcsCategories } from '../../shared/class/class'
+import { getRouterLink, ClassData, mcsdsCategories, departments } from '../../shared/class/class'
 
 @Component({
   selector: 'app-course-grid',
@@ -9,7 +9,7 @@ import { getRouterLink, ClassData, mcsdsCategories, mcsCategories } from '../../
 })
 export class CourseGridComponent implements OnInit {
   classes: ClassData[] = []
-  mcsCats: string[] = mcsCategories
+  depts: string[] = departments
   mcsdsCats: string[] = mcsdsCategories
   languages: string[] = []
   selected: string[] = []
@@ -58,12 +58,12 @@ export class CourseGridComponent implements OnInit {
     } else {                                                                        // Something is selected
       for (var i = 0; i < this.selected.length; i++) {                                    // For every item in this.selected
         let item = this.selected[i]                                                 // Get selection to process
-        if (this.mcsCats.includes(item)) {                                         // Check if it's a category
-          this.classes.filter(x => x.category?.includes(item)).forEach(data => {           // Look for classes with categories that match the chosen cat
+        if (this.depts.includes(item)) {                                         // Check if it's a category
+          this.classes.filter(x => x.Department?.includes(item)).forEach(data => {           // Look for classes with categories that match the chosen cat
             this.selectedCats.add(data)                                              // Add it to the set
           })
         } else if (this.mcsdsCats.includes(item)) {                                         // Check if it's a category
-          this.classes.filter(x => x.category?.includes(item)).forEach(data => {           // Look for classes with categories that match the chosen cat
+          this.classes.filter(x => x.Department?.includes(item)).forEach(data => {           // Look for classes with categories that match the chosen cat
             this.selectedCats.add(data)                                              // Add it to the set
           })
         } else {                                                                    // Otherwise it's a language

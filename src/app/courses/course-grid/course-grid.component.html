@@ -3,18 +3,18 @@
     <mat-card>
       <mat-card-subtitle>Filter by MCS Area:</mat-card-subtitle>
       <mat-chip-list multiple>
-        <mat-chip [selected]="isSelected(category)" (click)="toggleSelection(category)"
-          *ngFor="let category of mcsCats">
-          {{category}}
+        <mat-chip [selected]="isSelected(Department)" (click)="toggleSelection(Department)"
+          *ngFor="let Department of depts">
+          {{Department}}
         </mat-chip>
       </mat-chip-list>
     </mat-card>
     <mat-card>
       <mat-card-subtitle>Filter by MCS-DS Area:</mat-card-subtitle>
       <mat-chip-list multiple>
-        <mat-chip [selected]="isSelected(category)" (click)="toggleSelection(category)"
-          *ngFor="let category of mcsdsCats">
-          {{category}}
+        <mat-chip [selected]="isSelected(Department)" (click)="toggleSelection(Department)"
+          *ngFor="let Department of mcsdsCats">
+          {{Department}}
         </mat-chip>
       </mat-chip-list>
     </mat-card>
@@ -35,7 +35,7 @@
         <mat-card-subtitle>{{class.CourseNumber}}</mat-card-subtitle>
       </mat-card-header>
       <mat-chip-list>
-        <mat-chip *ngFor="let cat of class.category">{{cat}}&nbsp;
+        <mat-chip *ngFor="let cat of class.Department">{{cat}}&nbsp;
         </mat-chip>
         <mat-chip *ngFor="let lang of class.languages">{{lang}}</mat-chip>
       </mat-chip-list>

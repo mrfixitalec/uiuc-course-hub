@@ -3,7 +3,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { Router } from '@angular/router';
 import { ClassService } from 'src/app/services/classes/class.service';
-import { getRouterLink, ClassData, mcsCategories,
+import { getRouterLink, ClassData, departments,
      mcsdsCategories, Semesters} from '../../shared/class/class'
 
 interface FilterOption {
@@ -29,12 +29,12 @@ export class CourseListComponent implements AfterViewInit {
         'RatingAvg',
         'Semester',
     ]
-    mcsOptions: FilterOption[]
+    deptOptions: FilterOption[]
     mcsdsOptions: FilterOption[]
     semesterOptions: FilterOption[]
 
     emptyFilter: FilterOption = { value: '', view: '' }
-    mcsValue: string = this.emptyFilter.value
+    deptValue: string = this.emptyFilter.value
     mcsdsValue: string = this.emptyFilter.value
     semesterValue: string = this.emptyFilter.value
 
@@ -58,7 +58,7 @@ export class CourseListComponent implements AfterViewInit {
         private courses: ClassService,
         private router: Router
     ) {
-        this.mcsOptions = this.makeOptions(mcsCategories)
+        this.deptOptions = this.makeOptions(departments)
         this.mcsdsOptions = this.makeOptions(mcsdsCategories)
         this.semesterOptions = this.makeOptions(Semesters)
     }
@@ -87,7 +87,7 @@ export class CourseListComponent implements AfterViewInit {
     }
 
     onSemesterFilterClick() {
-        this.mcsValue = this.emptyFilter.value
+        this.deptValue = this.emptyFilter.value
         this.mcsdsValue = this.emptyFilter.value
 
         var targetValue = this.semesterValue
@@ -100,7 +100,7 @@ export class CourseListComponent implements AfterViewInit {
     onFilterOptionClick(isMCSDS: boolean) {
         var targetValue = this.emptyFilter.value
         if (isMCSDS) {
-            this.mcsValue = this.emptyFilter.value
+            this.deptValue = this.emptyFilter.value
             this.semesterValue = this.emptyFilter.value
 
             var targetValue = this.mcsdsValue
@@ -108,7 +108,7 @@ export class CourseListComponent implements AfterViewInit {
             this.mcsdsValue = this.emptyFilter.value
             this.semesterValue = this.emptyFilter.value
 
-            var targetValue = this.mcsValue
+            var targetValue = this.deptValue
         }
         const filterValue = targetValue.trim().toLocaleLowerCase();
         // console.log(filterValue)

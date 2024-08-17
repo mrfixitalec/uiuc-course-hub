@@ -29,7 +29,7 @@ export class EditCourseComponent implements OnInit {
     ngOnInit(): void {
         this.courseName = this.route.snapshot.paramMap.get('courseId') || ""
         this.editForm = this.formBuilder.group({
-            category: ['', Validators.required],
+            departments: ['', Validators.required],
             seasonSpring: [false, Validators.required],
             seasonSummer: [false, Validators.required],
             seasonFall: [false, Validators.required],
@@ -37,7 +37,7 @@ export class EditCourseComponent implements OnInit {
         })
         this.courseService.classes.subscribe(data => {
             this.courseData = data.find(x => x.ClassName == this.courseName)
-            this.f.category.setValue(this.courseData?.category)
+            this.f.departments.setValue(this.courseData?.Department)
             this.f.seasonSpring.setValue(this.courseData?.season.spring)
             this.f.seasonSummer.setValue(this.courseData?.season.summer)
             this.f.seasonFall.setValue(this.courseData?.season.fall)
@@ -53,7 +53,7 @@ export class EditCourseComponent implements OnInit {
         const ref = doc(this.afs, "Class", this.courseData?.courseId as string)
         await updateDoc(ref,
             {
-                category: this.f.category.value,
+                Department: this.f.departments.value,
                 season: {
                     spring: this.f.seasonSpring.value,
                     summer: this.f.seasonSummer.value,
