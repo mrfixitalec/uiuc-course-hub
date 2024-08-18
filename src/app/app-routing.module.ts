@@ -58,8 +58,8 @@ const routes: Routes = [
     {
         path: '', component: CourseListComponent,
         data: {
-            title: 'UIUC Master of Computer Science Course Reviews',
-            description: 'Course Reviews and information about the Master of Computer Science programs at the University of Illinois at Urbana-Champaign.',
+            title: 'Illini Courses',
+            description: 'Course Reviews and information about courses and professorsy at the University of Illinois at Urbana-Champaign.',
         }
     },
     {

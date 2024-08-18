@@ -1,5 +1,5 @@
 export const environment = {
-    websiteName: "uiuchub.com", 
+    websiteName: "illini.courses", 
     production: true, 
     firebase: {
         apiKey: "AIzaSyAklMrJioaJPCkU6pT8W7Yq0IfsQ0h3o88",
