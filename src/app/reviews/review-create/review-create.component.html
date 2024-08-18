@@ -73,11 +73,11 @@
         </mat-form-field>
 
         <mat-form-field id="title" class="form-field-full-width" floatLabel="always" appearance="outline">
-          <mat-label>Headline</mat-label>
+          <mat-label>Title</mat-label>
           <input matInput placeholder="Review Title" autocomplete="off" formControlName="title" required name="title"
-            placeholder="This is a fantastic course" [ngClass]="{'is-invalid': submitted}">
+            placeholder="My favorite course so far" [ngClass]="{'is-invalid': submitted}">
           <mat-error *ngIf="reviewForm.controls.title.hasError('required')">
-            Please enter a headline
+            Please enter a title
           </mat-error>
         </mat-form-field>
 

@@ -36,10 +36,10 @@ export class CourseDetailComponent implements OnInit, AfterViewInit {
     courseNumber: string = ""
     course?: ClassData
     cards = [
-        { title: 'Reviews', subtitle: '', value: 0 },
-        { title: 'Avg. Difficulty', subtitle: '', value: 0 },
-        { title: 'Avg. Workload', subtitle: 'Hours Per Week', value: 0 },
-        { title: 'Avg. Rating', subtitle: '', value: 0 },
+        { title: '# Reviews', subtitle: '', value: 0 },
+        { title: 'Avg. Difficulty (1-5)', subtitle: '', value: 0 },
+        { title: 'Avg. Workload (hrs/wk)', subtitle: 'Hours Per Week', value: 0 },
+        { title: 'Avg. Rating (1-5)', subtitle: '', value: 0 },
     ]
     orderByOptions = [
         { displayText: "Newest", field: "timestamp", order: "desc" },

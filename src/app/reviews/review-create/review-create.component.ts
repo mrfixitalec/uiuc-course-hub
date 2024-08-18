@@ -38,7 +38,7 @@ export class CreateReviewComponent implements OnInit {
 
     // reviewPlaceholder = 'The good:\n1.\n2.\n\nThe bad:\n1.\n2.\n\nDetailed Review:\nI highly recommend this course. Here\'s why:'
     // Unfortunately the html5 spec doesn't support multiline placeholders.
-    reviewPlaceholder = 'I highly recommend this course. Here\'s why:'
+    reviewPlaceholder = 'Pros/Cons, Structure, Grading, Content, Support, etc...'
 
     courses: ClassData[] | undefined
     reviewForm: FormGroup = new FormGroup({})
