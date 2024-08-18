@@ -1,3 +1,28 @@
+<div>
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutGap="16px"
+    class="filter-container">
+    <div class="filter" fxFlex>
+      <mat-form-field appearance="fill">
+        <mat-label>Department Code</mat-label>
+        <mat-select [(value)]="selectedDepartment" (selectionChange)="onDepartmentChange($event.value)">
+          <mat-option *ngFor="let department of departmentOptions" [value]="department">
+            {{department}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="filter" fxFlex>
+      <mat-form-field appearance="fill">
+        <mat-label>Course Level</mat-label>
+        <mat-select [(value)]="selectedCourseLevel" (selectionChange)="onCourseLevelChange($event.value)">
+          <mat-option *ngFor="let level of courseLevelOptions" [value]="level">
+            {{level}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
 <mat-card class="chart-card">
   <canvas #chartCanvas></canvas>
 </mat-card>

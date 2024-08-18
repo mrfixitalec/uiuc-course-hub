@@ -31,7 +31,7 @@ export interface NavItem {
 export const NavInfo = new Map<string, NavItem>([
     ['courses', { title: 'Courses', url: '/', show: true }],
     ['chart', { title: 'Chart', url: '/chart', show: true }],
-    ['grid', { title: 'Grid', url: '/grid', show: true }],
+    //['grid', { title: 'Grid', url: '/grid', show: true }],
     ['reviews', { title: 'Reviews', url: '/reviews', show: true }],
     ['createReview', { title: 'Create Review', url: '/createReview', show: false }],
     ['settings', { title: 'Profile', url: '/settings', show: false }],
@@ -80,10 +80,10 @@ const routes: Routes = [
         data: { title: '', description: '' },
         canActivate: [AuthguardGuard]
     },
-    {
-        path: 'grid', component: CourseGridComponent,
-        data: { title: `Course Grid | ${environment.websiteName}`, description: '' }
-    },
+    // {
+    //     path: 'grid', component: CourseGridComponent,
+    //     data: { title: `Course Grid | ${environment.websiteName}`, description: '' }
+    // },
     {
         path: 'chart', component: CourseChartComponent,
         data: { title: `Course Chart | ${environment.websiteName}`, description: '' }

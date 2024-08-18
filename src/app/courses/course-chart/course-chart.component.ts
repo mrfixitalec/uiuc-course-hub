@@ -4,6 +4,7 @@ import { Chart, registerables } from "chart.js";
 import randomColor from 'randomcolor';
 import { ClassService } from 'src/app/services/classes/class.service';
 import { getRouterLink } from 'src/app/shared/class/class';
+import { courseCategories } from 'src/app/shared/class/class';
 
 
 @Component({
@@ -15,9 +16,24 @@ export class CourseChartComponent implements OnInit, AfterViewInit {
   @ViewChild('chartCanvas') public canvas?: ElementRef<HTMLCanvasElement>;
   public chart: Chart | undefined;
   public courseData: any[] = [];
+  public selectedDepartment: string = '';
+  public selectedCourseLevel: any = '';
 
   constructor(private courses: ClassService, private router: Router) {
     Chart.register(...registerables);
+  }
+
+  // Define options for the dropdowns
+  public departmentOptions: any[] = [''].concat(courseCategories); // Example department codes
+  public courseLevelOptions: any[] = ['',100, 200, 300, 400, 500, 600]; // Example course levels
+
+  // Event handlers for selection change
+  public onDepartmentChange(department: string): void {
+    // Handle department selection change
+  }
+
+  public onCourseLevelChange(level: number): void {
+    // Handle course level selection change
   }
 
   public ngOnInit(): void {
