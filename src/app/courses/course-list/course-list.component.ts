@@ -1,133 +1,126 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { Router } from '@angular/router';
 import { ClassService } from 'src/app/services/classes/class.service';
-import { getRouterLink, ClassData, departments,
-     mcsdsCategories, Semesters} from '../../shared/class/class'
+import { getRouterLink, ClassData, departments, Semesters } from '../../shared/class/class';
 
 interface FilterOption {
-    value: string;
-    view: string;
+  value: string;
+  view: string;
 }
 
 @Component({
-    selector: 'app-course-list',
-    templateUrl: './course-list.component.html',
-    styleUrls: ['./course-list.component.scss'],
+  selector: 'app-course-list',
+  templateUrl: './course-list.component.html',
+  styleUrls: ['./course-list.component.scss'],
 })
+export class CourseListComponent implements AfterViewInit, OnInit {
+  classes: ClassData[] = [];
+  dataSource = new MatTableDataSource<ClassData>([]);
+  displayedColumns: string[] = [
+    'CourseNumber',
+    'ClassName',
+    'RatingCount',
+    'DifficultyAvg',
+    'WorkloadAvg',
+    'RatingAvg',
+    'Semester',
+  ];
+  deptOptions: FilterOption[];
+  semesterOptions: FilterOption[];
 
-export class CourseListComponent implements AfterViewInit {
-    classes: ClassData[] = []
-    dataSource = new MatTableDataSource<ClassData>()
-    displayedColumns: string[] = [
-        'CourseNumber',
-        'ClassName',
-        'RatingCount',
-        'DifficultyAvg',
-        'WorkloadAvg',
-        'RatingAvg',
-        'Semester',
-    ]
-    deptOptions: FilterOption[]
-    mcsdsOptions: FilterOption[]
-    semesterOptions: FilterOption[]
+  deptValue: string = '';
+  semesterValue: string = '';
 
-    emptyFilter: FilterOption = { value: '', view: '' }
-    deptValue: string = this.emptyFilter.value
-    mcsdsValue: string = this.emptyFilter.value
-    semesterValue: string = this.emptyFilter.value
+  @ViewChild(MatSort) sort!: MatSort;
 
-    getRouterLink = getRouterLink
+  constructor(
+    private courses: ClassService,
+    private router: Router
+  ) {
+    this.deptOptions = this.makeOptions(departments);
+    this.semesterOptions = this.makeOptions(Semesters);
+  }
 
-    makeOptions(cats: string[]) {
-        // Construct the array of options filters
-        var ret = [this.emptyFilter]
-            .concat(cats.reduce(function (s: any, a: any) {
-                // Remove "MCS " "MCSDS " from the option views
-                s.push({ value: a, view: a.replace(/MCS |MCSDS /g, "") });
-                return s;
-            }, [])
-            )
-        return ret
+  makeOptions(cats: string[]): FilterOption[] {
+    return [{ value: '', view: '' }].concat(
+      cats.map((a) => ({
+        value: a,
+        view: a.replace(/MCS |MCSDS /g, ''),
+      }))
+    );
+  }
+
+  ngOnInit() {
+    // No need to set filterPredicate as we're handling filtering manually
+  }
+
+  ngAfterViewInit(): void {
+    this.courses.classes.subscribe((data) => {
+      const processedData = data.map((x) => {
+        x.season_str = [];
+        if (x.season.fall) x.season_str.push('fall');
+        if (x.season.spring) x.season_str.push('spring');
+        if (x.season.summer) x.season_str.push('summer');
+        return x;
+      });
+      this.classes = processedData;
+      this.applyFilters();  // Apply filters initially if needed
+      this.dataSource.sort = this.sort;
+    });
+  }
+
+  applyFilters(): void {
+    if (!this.deptValue) {
+      // Clear the dataSource if no department filter is selected
+      this.dataSource.data = [];
+      return;
     }
 
-    objectKeys = Object.keys
-    @ViewChild(MatSort) sort!: MatSort
-    constructor(
-        private courses: ClassService,
-        private router: Router
-    ) {
-        this.deptOptions = this.makeOptions(departments)
-        this.mcsdsOptions = this.makeOptions(mcsdsCategories)
-        this.semesterOptions = this.makeOptions(Semesters)
+    let filteredData = this.classes;
+
+    // Apply department filter
+    if (this.deptValue) {
+      filteredData = filteredData.filter(item => {
+        const department = item.Department || '';  // Ensure Department is a string
+        return department.toLowerCase() === this.deptValue.toLowerCase();
+      });
     }
 
-    ngAfterViewInit(): void {
-        this.courses.classes.subscribe(data => {
-            var ret: ClassData[] = []
-            for (var x of data){
-                x.season_str = []
-                if (x.season.fall) {
-                    x.season_str.push("fall")
-                }
-                if (x.season.spring) {
-                    x.season_str.push("spring")
-                }
-                if (x.season.summer) {
-                    x.season_str.push("summer")
-                }
-                ret.push(x)
-            }
-            this.classes = ret
-            // console.log(data)
-            this.dataSource = new MatTableDataSource(this.classes)
-            this.dataSource.sort = this.sort
-        });
+    // Apply semester filter
+    if (this.semesterValue) {
+      filteredData = filteredData.filter(item =>
+        item.season_str.includes(this.semesterValue.toLowerCase())
+      );
     }
 
-    onSemesterFilterClick() {
-        this.deptValue = this.emptyFilter.value
-        this.mcsdsValue = this.emptyFilter.value
+    // Update dataSource with filtered data
+    this.dataSource.data = filteredData;
+  }
 
-        var targetValue = this.semesterValue
+  onDeptFilterChange(value: string): void {
+    this.deptValue = value;
+    this.applyFilters();
+  }
 
-        const filterValue = targetValue.trim().toLocaleLowerCase();
-        // console.log(filterValue)
-        this.dataSource.filter = filterValue;
+  onSemesterFilterChange(value: string): void {
+    this.semesterValue = value;
+    this.applyFilters();
+  }
+
+  trackById(index: number, item: ClassData): string {
+    return item.ClassName;
+  }
+
+  rowClick(ev: MouseEvent, course: ClassData): void {
+    const link = getRouterLink(course);
+    if (ev.ctrlKey || ev.metaKey) {
+      this.router.navigate([]).then(() => {
+        window.open(link);
+      });
+    } else {
+      this.router.navigate([link]);
     }
-
-    onFilterOptionClick(isMCSDS: boolean) {
-        var targetValue = this.emptyFilter.value
-        if (isMCSDS) {
-            this.deptValue = this.emptyFilter.value
-            this.semesterValue = this.emptyFilter.value
-
-            var targetValue = this.mcsdsValue
-        } else {
-            this.mcsdsValue = this.emptyFilter.value
-            this.semesterValue = this.emptyFilter.value
-
-            var targetValue = this.deptValue
-        }
-        const filterValue = targetValue.trim().toLocaleLowerCase();
-        // console.log(filterValue)
-        this.dataSource.filter = filterValue;
-    }
-
-    trackById(index: number, item: ClassData) {
-        return item.ClassName
-    }
-
-    rowClick(ev: MouseEvent, course: ClassData) {
-        const link = getRouterLink(course)
-        // console.log(link)
-        // if (ev.button === 1 || (ev.ctrlKey && ev.button === 0)) {
-        if (ev.ctrlKey || ev.metaKey) {
-            this.router.navigate([]).then(result => { window.open(link); });
-        }
-        else {
-            this.router.navigate([link]);
-        }
-    }
+  }
 }

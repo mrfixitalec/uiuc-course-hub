@@ -73,7 +73,9 @@ export const Ratings: Rating[] = [
 export interface ClassData {
   courseId: string,
   ClassName: string,
+  CourseNumValue: number,
   CourseNumber: string,
+  Department: string | "foo",
   Description: string,
   DifficultyAvg: number,
   DifficultyCount: number,
@@ -83,7 +85,6 @@ export interface ClassData {
   SampleSyllabus: string,
   WorkloadAvg: number,
   WorkloadCount: number,
-  Department: string[] | null,
   languages: string[] | null,
   lastUpdated: Timestamp,
   season: {
