@@ -101,7 +101,7 @@ export class CourseListComponent implements AfterViewInit, OnInit {
 
   applyFilters(): void {
     if (!this.deptControl.value && !this.semesterControl.value && !this.difficultyValue && !this.workloadValue && !this.ratingValue) {
-      this.dataSource.data = this.classes;
+      this.dataSource.data = []; //this.classes; // to show all classes by default
       return;
     }
   
