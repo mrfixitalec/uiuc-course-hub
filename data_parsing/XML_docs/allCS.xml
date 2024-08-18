@@ -1,0 +1,108 @@
+<ns2:subject xmlns:ns2="http://rest.cis.illinois.edu" id="CS">
+<parents>
+<calendarYear id="2023" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023.xml">2023</calendarYear>
+<term id="120238" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall.xml">Fall 2023</term>
+</parents>
+<label>Computer Science</label>
+<collegeCode>KP</collegeCode>
+<departmentCode>1434</departmentCode>
+<unitName>Computer Science</unitName>
+<contactName>Nancy Amato</contactName>
+<contactTitle>Head of Department</contactTitle>
+<addressLine1>Department Office</addressLine1>
+<addressLine2>2232 Siebel Center, 201 N. Goodwin Avenue, Urbana</addressLine2>
+<phoneNumber>217-333-3426</phoneNumber>
+<webSiteURL>www.cs.illinois.edu</webSiteURL>
+<collegeDepartmentDescription>Head of Department: Nancy Amato Department Office, 2232 Siebel Center, 201 N. Goodwin Avenue, Urbana, 217-333-3426 www.cs.illinois.edu</collegeDepartmentDescription>
+<courses>
+<course id="100" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/100.xml">Computer Science Orientation</course>
+<course id="101" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/101.xml">Intro Computing: Engrg and Sci</course>
+<course id="105" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/105.xml">Intro Computing: Non-Tech</course>
+<course id="107" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/107.xml">Data Science Discovery</course>
+<course id="124" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/124.xml">Introduction to Computer Science I</course>
+<course id="128" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/128.xml">Introduction to Computer Science II</course>
+<course id="173" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/173.xml">Discrete Structures</course>
+<course id="199" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/199.xml">Undergraduate Open Seminar in Computer Science</course>
+<course id="210" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/210.xml">Ethical and Professional Issues</course>
+<course id="211" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/211.xml">Ethical and Professional Conduct</course>
+<course id="222" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/222.xml">Software Design Lab</course>
+<course id="225" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/225.xml">Data Structures</course>
+<course id="233" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/233.xml">Computer Architecture</course>
+<course id="265" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/265.xml">Innovation Illinois: From Accessible Design to Supercomputing Cultures</course>
+<course id="307" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/307.xml">Modeling and Learning in Data Science</course>
+<course id="340" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/340.xml">Introduction to Computer Systems</course>
+<course id="341" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/341.xml">System Programming</course>
+<course id="357" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/357.xml">Numerical Methods I</course>
+<course id="361" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/361.xml">Probability and Statistics for Computer Science</course>
+<course id="374" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/374.xml">Introduction to Algorithms and Models of Computation</course>
+<course id="397" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/397.xml">Individual Study</course>
+<course id="400" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/400.xml">Accelerated Fundamentals of Computing I</course>
+<course id="401" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/401.xml">Accelerated Fundamentals of Algorithms I</course>
+<course id="407" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/407.xml">Cryptography</course>
+<course id="409" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/409.xml">The Art of Web Programming</course>
+<course id="410" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/410.xml">Text Information Systems</course>
+<course id="411" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/411.xml">Database Systems</course>
+<course id="412" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/412.xml">Introduction to Data Mining</course>
+<course id="413" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/413.xml">Intro to Combinatorics</course>
+<course id="415" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/415.xml">Game Development</course>
+<course id="418" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/418.xml">Interactive Computer Graphics</course>
+<course id="421" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/421.xml">Programming Languages and Compilers</course>
+<course id="422" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/422.xml">Programming Language Design</course>
+<course id="423" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/423.xml">Operating Systems Design</course>
+<course id="424" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/424.xml">Real-Time Systems</course>
+<course id="425" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/425.xml">Distributed Systems</course>
+<course id="426" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/426.xml">Compiler Construction</course>
+<course id="427" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/427.xml">Software Engineering I</course>
+<course id="433" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/433.xml">Computer System Organization</course>
+<course id="437" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/437.xml">Topics in Internet of Things</course>
+<course id="438" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/438.xml">Communication Networks</course>
+<course id="439" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/439.xml">Wireless Networks</course>
+<course id="440" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/440.xml">Artificial Intelligence</course>
+<course id="441" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/441.xml">Applied Machine Learning</course>
+<course id="442" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/442.xml">Trustworthy Machine Learning</course>
+<course id="444" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/444.xml">Deep Learning for Computer Vision</course>
+<course id="445" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/445.xml">Computational Photography</course>
+<course id="446" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/446.xml">Machine Learning</course>
+<course id="447" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/447.xml">Natural Language Processing</course>
+<course id="450" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/450.xml">Numerical Analysis</course>
+<course id="460" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/460.xml">Security Laboratory</course>
+<course id="461" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/461.xml">Computer Security I</course>
+<course id="465" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/465.xml">User Interface Design</course>
+<course id="466" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/466.xml">Introduction to Bioinformatics</course>
+<course id="468" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/468.xml">Tech and Advertising Campaigns</course>
+<course id="473" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/473.xml">Algorithms</course>
+<course id="475" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/475.xml">Formal Models of Computation</course>
+<course id="476" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/476.xml">Program Verification</course>
+<course id="481" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/481.xml">Advanced Topics in Stochastic Processes and Applications</course>
+<course id="483" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/483.xml">Applied Parallel Programming</course>
+<course id="491" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/491.xml">Seminar</course>
+<course id="492" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/492.xml">Senior Project I</course>
+<course id="497" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/497.xml">CS Team Project</course>
+<course id="498" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/498.xml">Special Topics</course>
+<course id="499" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/499.xml">Senior Thesis</course>
+<course id="500" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/500.xml">Current Topics in Computing Education Research</course>
+<course id="511" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/511.xml">Advanced Data Management</course>
+<course id="512" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/512.xml">Data Mining Principles</course>
+<course id="514" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/514.xml">Advanced Topics in Network Science</course>
+<course id="521" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/521.xml">Advanced Topics in Programming Systems</course>
+<course id="527" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/527.xml">Topics in Software Engineering</course>
+<course id="537" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/537.xml">Advanced Topics in Internet of Things (IoT)</course>
+<course id="542" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/542.xml">Statistical Reinforcement Learning</course>
+<course id="543" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/543.xml">Computer Vision</course>
+<course id="545" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/545.xml">Machine Learning for Signal Processing</course>
+<course id="546" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/546.xml">Advanced Topics in Natural Language Processing</course>
+<course id="549" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/549.xml">Seminar in Cognitive Science</course>
+<course id="554" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/554.xml">Parallel Numerical Algorithms</course>
+<course id="562" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/562.xml">Advanced Topics in Security, Privacy, and Machine Learning</course>
+<course id="563" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/563.xml">Advanced Computer Security</course>
+<course id="567" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/567.xml">Social Signals and Social Media</course>
+<course id="572" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/572.xml">Extremal Graph Theory</course>
+<course id="579" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/579.xml">Computational Complexity</course>
+<course id="580" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/580.xml">Topics in Algorithmic Game Theory</course>
+<course id="581" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/581.xml">Algorithmic Genomic Biology</course>
+<course id="591" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/591.xml">Advanced Seminar</course>
+<course id="597" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/597.xml">Individual Study</course>
+<course id="598" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/598.xml">Special Topics</course>
+<course id="599" href="https://courses.illinois.edu/cisapp/explorer/schedule/2023/fall/CS/599.xml">Thesis Research</course>
+</courses>
+</ns2:subject>
