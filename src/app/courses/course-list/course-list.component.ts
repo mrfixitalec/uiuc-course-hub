@@ -4,6 +4,9 @@ import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/materia
 import { Router } from '@angular/router';
 import { ClassService } from 'src/app/services/classes/class.service';
 import { getRouterLink, ClassData, departments, Semesters } from '../../shared/class/class';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 interface FilterOption {
   value: string;
@@ -30,8 +33,14 @@ export class CourseListComponent implements AfterViewInit, OnInit {
   deptOptions: FilterOption[];
   semesterOptions: FilterOption[];
 
-  deptValue: string = '';
-  semesterValue: string = '';
+  deptControl = new FormControl('');
+  semesterControl = new FormControl('');
+  filteredDeptOptions!: Observable<FilterOption[]>;
+  filteredSemesterOptions!: Observable<FilterOption[]>;
+
+  difficultyValue: string = '';
+  workloadValue: string = '';
+  ratingValue: string = '';
 
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -53,7 +62,16 @@ export class CourseListComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit() {
-    // No need to set filterPredicate as we're handling filtering manually
+    // Initialize filtered options
+    this.filteredDeptOptions = this.deptControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterDeptOptions(value!))
+    );
+
+    this.filteredSemesterOptions = this.semesterControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterSemesterOptions(value!))
+    );
   }
 
   ngAfterViewInit(): void {
@@ -71,41 +89,93 @@ export class CourseListComponent implements AfterViewInit, OnInit {
     });
   }
 
+  private _filterDeptOptions(value: string): FilterOption[] {
+    const filterValue = value.toLowerCase();
+    return this.deptOptions.filter(option => option.view.toLowerCase().includes(filterValue));
+  }
+
+  private _filterSemesterOptions(value: string): FilterOption[] {
+    const filterValue = value.toLowerCase();
+    return this.semesterOptions.filter(option => option.view.toLowerCase().includes(filterValue));
+  }
+
   applyFilters(): void {
-    if (!this.deptValue) {
-      // Clear the dataSource if no department filter is selected
-      this.dataSource.data = [];
+    if (!this.deptControl.value && !this.semesterControl.value && !this.difficultyValue && !this.workloadValue && !this.ratingValue) {
+      this.dataSource.data = this.classes;
       return;
     }
-
+  
     let filteredData = this.classes;
-
+  
     // Apply department filter
-    if (this.deptValue) {
+    if (this.deptControl.value) {
       filteredData = filteredData.filter(item => {
         const department = item.Department || '';  // Ensure Department is a string
-        return department.toLowerCase() === this.deptValue.toLowerCase();
+        return department.toLowerCase().includes(this.deptControl.value!.toLowerCase());
       });
     }
-
+  
     // Apply semester filter
-    if (this.semesterValue) {
+    if (this.semesterControl.value) {
       filteredData = filteredData.filter(item =>
-        item.season_str.includes(this.semesterValue.toLowerCase())
+        item.season_str.some(season => season.toLowerCase().includes(this.semesterControl.value!.toLowerCase()))
       );
     }
-
+  
+    // Apply difficulty filter
+    if (this.difficultyValue) {
+      const difficultyNum = parseFloat(this.difficultyValue);
+      if (!isNaN(difficultyNum)) {
+        filteredData = filteredData.filter(item =>
+          item.DifficultyAvg <= difficultyNum
+        );
+      }
+    }
+  
+    // Apply workload filter
+    if (this.workloadValue) {
+      const workloadNum = parseFloat(this.workloadValue);
+      if (!isNaN(workloadNum)) {
+        filteredData = filteredData.filter(item =>
+          item.WorkloadAvg <= workloadNum
+        );
+      }
+    }
+  
+    // Apply rating filter
+    if (this.ratingValue) {
+      const ratingNum = parseFloat(this.ratingValue);
+      if (!isNaN(ratingNum)) {
+        filteredData = filteredData.filter(item =>
+          item.RatingAvg >= ratingNum
+        );
+      }
+    }
+  
     // Update dataSource with filtered data
     this.dataSource.data = filteredData;
   }
 
   onDeptFilterChange(value: string): void {
-    this.deptValue = value;
     this.applyFilters();
   }
 
   onSemesterFilterChange(value: string): void {
-    this.semesterValue = value;
+    this.applyFilters();
+  }
+
+  onDifficultyFilterChange(value: string): void {
+    this.difficultyValue = value;
+    this.applyFilters();
+  }
+  
+  onWorkloadFilterChange(value: string): void {
+    this.workloadValue = value;
+    this.applyFilters();
+  }
+  
+  onRatingFilterChange(value: string): void {
+    this.ratingValue = value;
     this.applyFilters();
   }
 

@@ -9,15 +9,18 @@
       <!-- Department Filter -->
       <div class="filter">
         <mat-form-field appearance="fill">
-          <mat-label>Department Filter</mat-label>
-          <mat-select [(value)]="deptValue" (selectionChange)="onDeptFilterChange($event.value)" panelClass="custom-select-panel">
-            <mat-option
-              *ngFor="let opt of deptOptions"
-              [value]="opt.value"
-            >
-              {{ opt.view }}
+          <mat-label>Select a Department</mat-label>
+          <input
+            matInput
+            [formControl]="deptControl"
+            (ngModelChange)="onDeptFilterChange($event)"
+            [matAutocomplete]="auto"
+          />
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredDeptOptions | async" [value]="option.value">
+              {{ option.view }}
             </mat-option>
-          </mat-select>
+          </mat-autocomplete>
         </mat-form-field>
       </div>
 
@@ -25,18 +28,46 @@
       <div class="filter">
         <mat-form-field appearance="fill">
           <mat-label>Semester Filter</mat-label>
-          <mat-select [(value)]="semesterValue" (selectionChange)="onSemesterFilterChange($event.value)" panelClass="select-no-max-height">
-            <mat-option
-              *ngFor="let opt of semesterOptions"
-              [value]="opt.value"
-            >
-              {{ opt.view }}
+          <input
+            matInput
+            [formControl]="semesterControl"
+            (ngModelChange)="onSemesterFilterChange($event)"
+            [matAutocomplete]="autoSemester"
+          />
+          <mat-autocomplete #autoSemester="matAutocomplete">
+            <mat-option *ngFor="let option of filteredSemesterOptions | async" [value]="option.value">
+              {{ option.view }}
             </mat-option>
-          </mat-select>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+
+      <!-- Difficulty Filter -->
+      <div class="filter">
+        <mat-form-field appearance="fill">
+          <mat-label>Difficulty Less than...</mat-label>
+          <input matInput type="number" [(ngModel)]="difficultyValue" (ngModelChange)="onDifficultyFilterChange($event)">
+        </mat-form-field>
+      </div>
+
+      <!-- Workload Filter -->
+      <div class="filter">
+        <mat-form-field appearance="fill">
+          <mat-label>Workload Less than...</mat-label>
+          <input matInput type="number" [(ngModel)]="workloadValue" (ngModelChange)="onWorkloadFilterChange($event)">
+        </mat-form-field>
+      </div>
+
+      <!-- Rating Filter -->
+      <div class="filter">
+        <mat-form-field appearance="fill">
+          <mat-label>Rating higher than...</mat-label>
+          <input matInput type="number" [(ngModel)]="ratingValue" (ngModelChange)="onRatingFilterChange($event)">
         </mat-form-field>
       </div>
     </div>
   </div>
+</div>
 
   <div class="table-container mat-elevation-z1">
     <table mat-table matSort [dataSource]="dataSource" [trackBy]="trackById" matSortActive="ClassName"
@@ -91,4 +122,4 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="rowClick($event, row)"></tr>
     </table>
   </div>
-</div>
+
