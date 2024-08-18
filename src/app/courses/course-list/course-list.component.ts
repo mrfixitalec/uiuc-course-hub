@@ -100,7 +100,7 @@ export class CourseListComponent implements AfterViewInit, OnInit {
   }
 
   applyFilters(): void {
-    if (!this.deptControl.value && !this.semesterControl.value && !this.difficultyValue && !this.workloadValue && !this.ratingValue) {
+    if (!this.deptControl.value) {
       this.dataSource.data = []; //this.classes; // to show all classes by default
       return;
     }
@@ -111,7 +111,7 @@ export class CourseListComponent implements AfterViewInit, OnInit {
     if (this.deptControl.value) {
       filteredData = filteredData.filter(item => {
         const department = item.Department || '';  // Ensure Department is a string
-        return department.toLowerCase().includes(this.deptControl.value!.toLowerCase());
+        return (department.toLowerCase() === this.deptControl.value!.toLowerCase());
       });
     }
   
