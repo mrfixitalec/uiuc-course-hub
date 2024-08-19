@@ -123,7 +123,7 @@ export class CreateReviewComponent implements OnInit {
 
     initializeReviewForm() {
         this.reviewForm = this.formBuilder.group({
-            department: ['', Validators.required],
+            Department: ['', Validators.required],
             ClassName: ['', Validators.required],
             semyear: ['', Validators.required],
             semester: [''],
