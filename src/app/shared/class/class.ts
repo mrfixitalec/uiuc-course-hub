@@ -25,7 +25,7 @@ export const departments = [
 ]
 
 export const courseCategories = Array.from(
-  new Set<string>(departments.concat(mcsdsCategories)))
+  new Set<string>(departments))
 
 export const courseLanguages = ["No longer using languages"] as const
 
