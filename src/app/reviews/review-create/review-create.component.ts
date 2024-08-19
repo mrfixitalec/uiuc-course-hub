@@ -104,7 +104,7 @@ export class CreateReviewComponent implements OnInit {
         var docData = docSnap.data() as Review
         docData.semyear = { semester: docData.semester, year: docData.year }
         this.reviewForm.setValue(docData)
-        this.f.course.disable()
+        this.f.ClassName.disable()
     }
 
     async getUserReviews() {
@@ -124,7 +124,7 @@ export class CreateReviewComponent implements OnInit {
     initializeReviewForm() {
         this.reviewForm = this.formBuilder.group({
             department: ['', Validators.required],
-            course: ['', Validators.required],
+            ClassName: ['', Validators.required],
             semyear: ['', Validators.required],
             semester: [''],
             year: ['', [Validators.min(2010), Validators.max(this.currentYear + 1)]],
@@ -140,11 +140,11 @@ export class CreateReviewComponent implements OnInit {
             helpfulNegative: [0, Validators.required],
             wilsonScore: [0.8, Validators.required],
             lastUpdated: [''],
-        })
-        this.reviewForm.controls['timestamp'].setValue(new Date())
+        });
+        this.reviewForm.controls['timestamp'].setValue(new Date());
         this.auth.userData.subscribe(user => {
             if (user) {
-                this.reviewForm.controls['userId'].setValue(user.uid)
+                this.reviewForm.controls['userId'].setValue(user.uid);
             }
         }).unsubscribe();
     }
@@ -169,8 +169,8 @@ export class CreateReviewComponent implements OnInit {
     }
 
     async onSubmit() {
-        const courseName = this.reviewForm.controls['course'].value
-        const course = this.courses?.find(item => item.ClassName === courseName)
+        const ClassName = this.reviewForm.controls['ClassName'].value
+        const course = this.courses?.find(item => item.ClassName === ClassName)
         const classId = course?.courseId
         this.reviewForm.controls['classId'].setValue(classId)
         this.submitted = true

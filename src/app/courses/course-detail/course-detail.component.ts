@@ -131,7 +131,7 @@ export class CourseDetailComponent implements OnInit, AfterViewInit {
         const ref = collection(this.afs, 'Reviews')
         var q = query(ref)
         q = query(q,
-            where("course", '==', this.courseName),
+            where("ClassName", '==', this.courseName),
             limit(this.pageLength),
             orderBy(this.selectedSort.field, this.selectedSort.order as
                 OrderByDirection))
@@ -167,7 +167,7 @@ export class CourseDetailComponent implements OnInit, AfterViewInit {
         const ref = collection(this.afs, 'Reviews')
         var q = query(ref)
         q = query(q,
-            where("course", '==', this.courseName),
+            where("ClassName", '==', this.courseName),
             limit(this.pageLength),
             orderBy(this.selectedSort.field, this.selectedSort.order as
                 OrderByDirection),

@@ -21,24 +21,25 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field id="course" class="form-field-full-width" floatLabel="always" appearance="outline">
+        <!-- ClassName Field -->
+        <mat-form-field id="ClassName" class="form-field-full-width" floatLabel="always" appearance="outline">
           <mat-label>Course</mat-label>
-          <mat-select formControlName="course" required>
+          <mat-select formControlName="ClassName" required>
             <div *ngFor="let course of courses">
               <mat-option *ngIf="reviewId || !completedReviews.includes(course.ClassName)" [value]="course.ClassName">
                 {{course.ClassName}}
               </mat-option>
             </div>
           </mat-select>
-          <mat-error *ngIf="reviewForm.controls.course.hasError('required')">
+          <mat-error *ngIf="reviewForm.controls.ClassName.hasError('required')">
             Please select a course
           </mat-error>
         </mat-form-field>
 
+        <!-- Semester Field -->
         <mat-form-field id="semester" class="form-field-full-width" floatLabel="always" appearance="outline">
           <mat-label>Semester</mat-label>
-          <mat-select [compareWith]="compareSemyear" formControlName="semyear" required
-            [ngClass]="{'is-invalid': submitted}">
+          <mat-select [compareWith]="compareSemyear" formControlName="semyear" required>
             <mat-option *ngFor="let semyear of semesterYears" [value]="semyear">
               {{semyear.semester + " " + semyear.year}}
             </mat-option>
@@ -48,9 +49,10 @@
           </mat-error>
         </mat-form-field>
 
+        <!-- Difficulty Field -->
         <mat-form-field id="difficulty" class="form-field-full-width" floatLabel="always" appearance="outline">
           <mat-label>Difficulty</mat-label>
-          <mat-select formControlName="difficulty" required [ngClass]="{'is-invalid': submitted}">
+          <mat-select formControlName="difficulty" required>
             <mat-option *ngFor="let difficulty of difficulties" [value]="difficulty.value">
               {{difficulty.view}}
             </mat-option>
@@ -60,6 +62,7 @@
           </mat-error>
         </mat-form-field>
 
+        <!-- Workload Field -->
         <mat-form-field id="workload" class="form-field-full-width" floatLabel="always" appearance="outline">
           <mat-label>Workload (hours/week)</mat-label>
           <input matInput type="number" required min="{{ minWorkload }}" max="{{ maxWorkload }}" autocomplete="off"
@@ -75,9 +78,10 @@
           </mat-error>
         </mat-form-field>
 
+        <!-- Rating Field -->
         <mat-form-field id="rating" class="form-field-full-width" floatLabel="always" appearance="outline">
           <mat-label>Rating</mat-label>
-          <mat-select formControlName="rating" required [ngClass]="{'is-invalid': submitted}">
+          <mat-select formControlName="rating" required>
             <mat-option *ngFor="let rating of ratings" [value]="rating.value">
               {{rating.view}}
             </mat-option>
@@ -87,19 +91,21 @@
           </mat-error>
         </mat-form-field>
 
+        <!-- Title Field -->
         <mat-form-field id="title" class="form-field-full-width" floatLabel="always" appearance="outline">
           <mat-label>Title</mat-label>
           <input matInput placeholder="Review Title" autocomplete="off" formControlName="title" required name="title"
-            placeholder="My favorite course so far" [ngClass]="{'is-invalid': submitted}">
+            placeholder="My favorite course so far">
           <mat-error *ngIf="reviewForm.controls.title.hasError('required')">
             Please enter a title
           </mat-error>
         </mat-form-field>
 
+        <!-- Review Body Field -->
         <mat-form-field id="review" class="form-field-full-width" floatLabel="always" appearance="outline">
           <mat-label>Review Body</mat-label>
-          <textarea matInput type="textarea" rows="12" formControlName="review" required
-            [ngClass]="{'is-invalid': submitted}" autocomplete="off" placeholder="{{reviewPlaceholder}}"></textarea>
+          <textarea matInput type="textarea" rows="12" formControlName="review" required autocomplete="off"
+            placeholder="{{reviewPlaceholder}}"></textarea>
           <mat-error *ngIf="reviewForm.controls.review.hasError('required'); else reviewExists">
             Please enter a review
           </mat-error>
