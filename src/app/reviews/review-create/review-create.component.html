@@ -6,6 +6,21 @@
 
     <form class="login-form" [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
       <mat-card-content>
+
+        <!-- Department Field -->
+        <mat-form-field id="department" class="form-field-full-width" floatLabel="always" appearance="outline">
+          <mat-label>Department</mat-label>
+          <input type="text" matInput [matAutocomplete]="auto" formControlName="department" required>
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let department of departments" [value]="department">
+              {{department}}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error *ngIf="reviewForm.controls.department.hasError('required')">
+            Please select or enter a department
+          </mat-error>
+        </mat-form-field>
+
         <mat-form-field id="course" class="form-field-full-width" floatLabel="always" appearance="outline">
           <mat-label>Course</mat-label>
           <mat-select formControlName="course" required>

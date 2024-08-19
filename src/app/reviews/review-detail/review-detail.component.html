@@ -13,11 +13,11 @@
           <div class="left">
             <span *ngIf="links" class="rev-course">
               <a [routerLink]="courseRouterLink(review)">
-                {{review.course}}
+                {{review.ClassName}}
               </a>
             </span>
             <span *ngIf="!links" class="rev-course">
-              {{review.course}}
+              {{review.ClassName}}
             </span>
             <mat-chip-list>
               <mat-chip class="chip-outlined" disabled>{{review.semester}} {{review.year}}

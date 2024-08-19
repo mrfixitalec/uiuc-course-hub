@@ -77,7 +77,7 @@ export class ReviewDetailComponent implements OnInit {
         this.reviewData.push(rev)
         this.reviewData = ratingsToStrings(this.reviewData)
         this.loading = false;
-        const title = `${rev.course} (${rev.semester} ${rev.year}) Course Review | ${environment.websiteName}`
+        const title = `${rev.ClassName} (${rev.semester} ${rev.year}) Course Review | ${environment.websiteName}`
         this.titleService.setTitle(title);
     }
 

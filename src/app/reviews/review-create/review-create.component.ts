@@ -7,7 +7,7 @@ import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ClassService } from 'src/app/services/classes/class.service';
-import { ClassData, Difficulties, Ratings, Semesters, getRouterLink } from 'src/app/shared/class/class';
+import { ClassData, Difficulties, Ratings, Semesters, getRouterLink, departments as depts } from 'src/app/shared/class/class';
 import { DialogReviewSubmission } from 'src/app/shared/dialog/review-submission/dialog-review-submission.component';
 import { DialogReviewTooShort } from 'src/app/shared/dialog/review-too-short/dialog-review-too-short.component';
 import { Review, SemesterYear } from 'src/app/shared/review/review';
@@ -25,6 +25,7 @@ export class CreateReviewComponent implements OnInit {
     error: any
     loading: boolean = false
     submitted: boolean = false
+    departments = depts
     pros: string[] = ["test"]
     cons: string[] = []
     currentYear: number = (new Date()).getFullYear()
@@ -116,12 +117,13 @@ export class CreateReviewComponent implements OnInit {
         this.completedReviews = []
         for (let item of response.docs) {
             const review = item.data() as Review
-            this.completedReviews.push(review.course)
+            this.completedReviews.push(review.ClassName)
         }
     }
 
     initializeReviewForm() {
         this.reviewForm = this.formBuilder.group({
+            department: ['', Validators.required],
             course: ['', Validators.required],
             semyear: ['', Validators.required],
             semester: [''],

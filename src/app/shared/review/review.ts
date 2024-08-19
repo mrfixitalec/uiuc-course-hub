@@ -8,7 +8,9 @@ export interface SemesterYear {
 export interface Review {
   classId: string,
   classNumber: string,
-  course: string,
+  ClassName: string,
+  CourseNumValue: number,
+  CourseNumber: string,
   difficulty: number,
   rating: number,
   difficultyString: string,
@@ -35,7 +37,7 @@ export enum reviewFeedbackType {
 }
 
 export function courseRouterLink(review: Review): string {
-  var ret = `/courses/${review.classNumber}-${review.course}`
+  var ret = `/courses/${review.classNumber}-${review.ClassName}`
   ret = ret.replace(/ /g, '-')
   return ret
 }
