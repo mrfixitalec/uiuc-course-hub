@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth/auth.service';
 import { ClassService } from '../services/classes/class.service';
-import { ClassData } from '../shared/class/class';
+import { ClassData, courseCategories } from '../shared/class/class'; // Add `courseCategories` import
 import { Review, ratingsToStrings } from '../shared/review/review';
 import { Firestore, collection } from '@angular/fire/firestore';
 import { DocumentData, getDocs, limit, orderBy, OrderByDirection, 
@@ -27,23 +27,16 @@ export class ReviewsComponent implements OnInit {
     noMore: boolean = false
     courses: ClassData[] = []
     courseId: string = ''
+    departments = courseCategories // List of departments
+    Department: string = ''
     orderByOptions = [
         { displayText: "Newest", field: "timestamp", order: "desc" },
         { displayText: "Oldest", field: "timestamp", order: "asc" },
-        // { displayText: "Most Helpful", field: "wilsonScore", order: "desc" },
-        // { displayText: "Least Helpful", field: "wilsonScore", order: "asc" },
     ]
 
     selectedSort: { displayText: string, field: string, order: string } = this.orderByOptions[0]
-    selectedCourseFilter: ClassData[] | '' = ''
+    selectedDepartmentFilter: ClassData[] | '' = ''
 
-    get reviewedCourses() {
-        var ret: (ClassData | '')[] = this.courses.filter((el) => {
-            return el.RatingCount > 0
-        });
-        ret.unshift('')
-        return ret
-    }
 
     ngOnInit(): void {
         this.auth.isLoggedIn.subscribe(state => { this.isLoggedIn = state })
@@ -51,12 +44,8 @@ export class ReviewsComponent implements OnInit {
         this.initLoad()
     }
 
-    onCourseChange(value: any) {
-        if (value !== '') {
-            this.courseId = value.courseId
-        } else {
-            this.courseId = ''
-        }
+    onDepartmentChange(value: any) {
+        this.Department = value
         this.initLoad()
     }
 
@@ -70,7 +59,7 @@ export class ReviewsComponent implements OnInit {
         for (let item of docs) {
             const review = item.data() as Review
             review.reviewId = item.id
-            const course = this.courses.find(item => item.courseId == review.classId)
+            const course = this.courses.find(item => item.Department == review.Department)
             if (course) {
                 review.classNumber = course.CourseNumber
             }
@@ -83,8 +72,8 @@ export class ReviewsComponent implements OnInit {
         const ref = collection(this.afs, 'Reviews')
 
         var q = query(ref)
-        if (this.courseId) {
-            q = query(q, where("classId", "==", this.courseId))
+        if (this.Department) {
+            q = query(q, where("Department", "==", this.Department))
         }
 
         q = query(q,
@@ -94,7 +83,6 @@ export class ReviewsComponent implements OnInit {
         )
 
         if (this.latestDoc) {
-            // console.log("latestDoc", this.latestDoc)
             q = query(q, startAfter(this.latestDoc))
         }
 

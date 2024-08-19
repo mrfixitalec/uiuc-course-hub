@@ -3,6 +3,7 @@
     width: 100%;
     display: flex;
     flex-direction: column; /* Ensures filters and table are stacked vertically */
+    overflow-x: auto;
     max-width: 1200px;
     margin: 0 auto;
   }
@@ -30,7 +31,7 @@
   /* Filter items with adaptive width */
   .filter {
     flex: 1; /* Ensures all filters take up equal width */
-    min-width: 200px; /* Ensures each filter has a minimum width */
+    min-width: 95px; /* Ensures each filter has a minimum width */
   }
   
   .filter mat-form-field {

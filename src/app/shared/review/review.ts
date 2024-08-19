@@ -8,6 +8,7 @@ export interface SemesterYear {
 export interface Review {
   classId: string,
   classNumber: string,
+  Department: string,
   ClassName: string,
   CourseNumValue: number,
   CourseNumber: string,

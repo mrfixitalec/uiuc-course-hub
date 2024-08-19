@@ -3,10 +3,10 @@
    class="filter-container">
     <div class="filter">
       <mat-form-field appearance="fill">
-        <mat-label>Course Filter</mat-label>
-        <mat-select [(value)]="selectedCourseFilter" (selectionChange)="onCourseChange($event.value)">
-          <mat-option *ngFor="let course of reviewedCourses" [value]="course">
-            {{course !== '' ? course.ClassName : ""}}
+        <mat-label>Department Filter</mat-label>
+        <mat-select [(value)]="selectedDepartmentFilter" (selectionChange)="onDepartmentChange($event.value)">
+          <mat-option *ngFor="let department of departments" [value]="department">
+            {{department}}
           </mat-option>
         </mat-select>
       </mat-form-field>
