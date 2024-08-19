@@ -8,15 +8,15 @@
       <mat-card-content>
 
         <!-- Department Field -->
-        <mat-form-field id="department" class="form-field-full-width" floatLabel="always" appearance="outline">
+        <mat-form-field id="Department" class="form-field-full-width" floatLabel="always" appearance="outline">
           <mat-label>Department</mat-label>
-          <input type="text" matInput [matAutocomplete]="auto" formControlName="department" required>
+          <input type="text" matInput [matAutocomplete]="auto" formControlName="Department" required>
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let department of departments" [value]="department">
               {{department}}
             </mat-option>
           </mat-autocomplete>
-          <mat-error *ngIf="reviewForm.controls.department.hasError('required')">
+          <mat-error *ngIf="reviewForm.controls.Department.hasError('required')">
             Please select or enter a department
           </mat-error>
         </mat-form-field>
