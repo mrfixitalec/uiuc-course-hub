@@ -90,7 +90,7 @@ export interface ClassData {
   season: {
     spring: boolean,
     summer: boolean,
-    fall: boolean
+    fall: boolean,
   },
   season_str: string[]
 }

@@ -11,6 +11,13 @@
       <div class="padded-cell white">
         <h1 class="white">{{courseName}}</h1>
         <h2 class="white">{{courseNumber}}</h2>
+        <mat-chip-list>
+          <div *ngFor="let season of course?.season | keyvalue">
+            <mat-chip [disableRipple]="true" *ngIf="season.value" class="chip-hover-disabled">
+              {{season.key | titlecase}}<mat-icon svgIcon="icons:{{season.key}}"></mat-icon>
+            </mat-chip>
+          </div>
+        </mat-chip-list>
       </div>
     </div>
   </div>
