@@ -3,9 +3,19 @@ import { Router } from '@angular/router';
 import { Chart, registerables } from "chart.js";
 import randomColor from 'randomcolor';
 import { ClassService } from 'src/app/services/classes/class.service';
-import { getRouterLink } from 'src/app/shared/class/class';
 import { courseCategories } from 'src/app/shared/class/class';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { getRouterLink, ClassData, departments, Semesters } from '../../shared/class/class';
+import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
+import { MatSort } from '@angular/material/sort';
 
+
+interface FilterOption {
+  value: string;
+  view: string;
+}
 
 @Component({
   selector: 'app-course-chart',
@@ -18,9 +28,25 @@ export class CourseChartComponent implements OnInit, AfterViewInit {
   public courseData: any[] = [];
   public selectedDepartment: string = '';
   public selectedCourseLevel: any = '';
+  deptControl = new FormControl('');
+  deptOptions: FilterOption[];
+  filteredDeptOptions!: Observable<FilterOption[]>;
+  dataSource = new MatTableDataSource<ClassData>([]);
+  @ViewChild(MatSort) sort!: MatSort;
+  classes: ClassData[] = [];
 
   constructor(private courses: ClassService, private router: Router) {
     Chart.register(...registerables);
+    this.deptOptions = this.makeOptions(departments);
+  }
+
+  makeOptions(cats: string[]): FilterOption[] {
+    return [{ value: '', view: '' }].concat(
+      cats.map((a) => ({
+        value: a,
+        view: a.replace(/MCS |MCSDS /g, ''),
+      }))
+    );
   }
 
   // Define options for the dropdowns
@@ -38,11 +64,20 @@ export class CourseChartComponent implements OnInit, AfterViewInit {
   }
 
   public applyFilters(): void {
+    if (!this.deptControl.value) {
+      this.dataSource.data = []; // use = this.classes instead to show all courses by default
+      return;
+    }
+
     let filteredData = this.courseData;
   
     // Filter by department
-    if (this.selectedDepartment) {
-      filteredData = filteredData.filter(item => item.classData.Department === this.selectedDepartment);
+    // Apply department filter
+    if (this.deptControl.value) {
+      filteredData = filteredData.filter(item => {
+        const department = item.classData.Department || '';  // Ensure Department is a string
+        return (department.toLowerCase() === this.deptControl.value!.toLowerCase());
+      });
     }
   
     // Filter by course level
@@ -50,18 +85,37 @@ export class CourseChartComponent implements OnInit, AfterViewInit {
       const lowerBound = this.selectedCourseLevel;
       const upperBound = lowerBound + 99;
       filteredData = filteredData.filter(item => {
-        const courseNum = parseInt(item.classData.CourseNumValue, 10);
+        const courseNum = item.classData.CourseNumValue;
         return courseNum >= lowerBound && courseNum <= upperBound;
       });
     }
   
     // Update the chart with filtered data
+    //console.log('Filtered data:', filteredData);
     this.redrawChart(filteredData);
+    // Update dataSource with filtered data
+    this.dataSource.data = filteredData;
   }
 
   public ngOnInit(): void {
-    this.courses.classes.subscribe(classes => {
-      this.courseData = classes.map(classData => ({
+    this.filteredDeptOptions = this.deptControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterDeptOptions(value!))
+    );
+  }
+
+  public ngAfterViewInit(): void {
+    this.courses.classes.subscribe((data) => {
+      const processedData = data.map((x) => {
+        x.season_str = [];
+        if (x.season.fall) x.season_str.push('fall');
+        if (x.season.spring) x.season_str.push('spring');
+        if (x.season.summer) x.season_str.push('summer');
+        return x;
+      });
+      this.classes = processedData;
+
+      this.courseData = data.map(classData => ({
         label: classData.CourseNumber,
         data: [{
           x: classData.DifficultyAvg,
@@ -71,12 +125,15 @@ export class CourseChartComponent implements OnInit, AfterViewInit {
         backgroundColor: randomColor(),
         classData: classData,
       }));
-      this.applyFilters();
+
+      this.applyFilters();  // Apply filters initially if needed
+      this.dataSource.sort = this.sort;
     });
   }
 
-  public ngAfterViewInit(): void {
-    this.applyFilters();
+  private _filterDeptOptions(value: string): FilterOption[] {
+    const filterValue = value.toLowerCase();
+    return this.deptOptions.filter(option => option.view.toLowerCase().includes(filterValue));
   }
 
   @HostListener('window:resize', ['$event'])

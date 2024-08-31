@@ -4,11 +4,17 @@
     <div class="filter" fxFlex>
       <mat-form-field appearance="fill">
         <mat-label>Department Code</mat-label>
-        <mat-select [(value)]="selectedDepartment" (selectionChange)="onDepartmentChange($event.value)">
-          <mat-option *ngFor="let department of departmentOptions" [value]="department">
-            {{department}}
+        <input
+          matInput
+          [formControl]="deptControl"
+          (ngModelChange)="onDepartmentChange($event.value)"
+          [matAutocomplete]="auto"
+        />
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredDeptOptions | async" [value]="option.value">
+            {{ option.view }}
           </mat-option>
-        </mat-select>
+        </mat-autocomplete>
       </mat-form-field>
     </div>
     <div class="filter" fxFlex>
