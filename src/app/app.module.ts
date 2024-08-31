@@ -16,6 +16,10 @@ import {
 } from '@angular/fire/firestore';
 import { getAnalytics, provideAnalytics, UserTrackingService, ScreenTrackingService } from '@angular/fire/analytics';
 
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
@@ -98,6 +102,9 @@ import { CourseChartComponent } from './courses/course-chart/course-chart.compon
         FormsModule,
         ReactiveFormsModule,
         FlexLayoutModule,
+        AngularFireAuthModule,
+        AngularFirestoreModule,
+        AngularFireModule.initializeApp(environment.firebase),
         provideFirebaseApp(() => initializeApp(environment.firebase)),
         provideFirestore(() => initializeFirestore(getApp(), {
             localCache: persistentLocalCache({

@@ -1,6 +1,12 @@
-import { User } from 'firebase/auth';
+export interface User {
+    uid: string,
+    email?: string,
+    displayName?: string,
+    photoUrl?: string,
+    emailVerified?: boolean,
+}
 
-export interface FbUser extends User{
+export interface FbUser extends firebase.default.User{
     firstName?: string,
     lastName?: string,
     firstSemester?: string,
