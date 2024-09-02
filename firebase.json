@@ -8,7 +8,7 @@
       "npm --prefix \"$RESOURCE_DIR\" run build"
     ],
     "source": "functions",
-    "runtime": "nodejs22"
+    "runtime": "nodejs20"
   },
   "hosting": {
     "public": "dist/uiuc-course-hub",

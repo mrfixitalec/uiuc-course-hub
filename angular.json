@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "uiuc-mcs-org": {
+        "uiuc-course-hub": {
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
@@ -20,7 +20,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "outputPath": "dist/uiuc-mcs-org",
+                        "outputPath": "dist/uiuc-course-hub",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
@@ -28,7 +28,9 @@
                         "assets": [
                             "src/favicon.ico",
                             "src/sitemap.xml",
-                            "src/robots.txt"
+                            "src/robots.txt",
+                            "src/assets/gpa-data",
+                            "src/assets"
                         ],
                         "styles": [
                             "src/styles/main.scss"
@@ -72,7 +74,7 @@
                                 "src/styles/main.scss"
                             ]
                         },
-                        "uiuc-mcs": {
+                        "uiuc-course-hub": {
                             "index": "src/index.html",
                             "optimization": true,
                             "outputHashing": "all",
@@ -103,21 +105,21 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "uiuc-mcs-org:build"
+                        "browserTarget": "uiuc-course-hub:build"
                     },
                     "configurations": {
                         "production": {
-                            "browserTarget": "uiuc-mcs-org:build:production"
+                            "browserTarget": "uiuc-course-hub:build:production"
                         },
-                        "uiuc-mcs": {
-                            "browserTarget": "uiuc-mcs-org:build:uiuc-mcs"
+                        "uiuc-course-hub": {
+                            "browserTarget": "uiuc-course-hub:build:uiuc-course-hub"
                         }
                     }
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "uiuc-mcs-org:build"
+                        "browserTarget": "uiuc-course-hub:build"
                     }
                 },
                 "test": {
@@ -130,7 +132,9 @@
                         "assets": [
                             "src/favicon.ico",
                             "src/sitemap.xml",
-                            "src/robots.txt"
+                            "src/robots.txt",
+                            "src/assets",
+                            "src/assets/gpa-data",
                         ],
                         "styles": [
                             "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
@@ -143,19 +147,19 @@
                     "builder": "@angular-devkit/build-angular:protractor",
                     "options": {
                         "protractorConfig": "e2e/protractor.conf.js",
-                        "devServerTarget": "uiuc-mcs-org:serve"
+                        "devServerTarget": "uiuc-course-hub:serve"
                     },
                     "configurations": {
                         "production": {
-                            "devServerTarget": "uiuc-mcs-org:serve:production"
+                            "devServerTarget": "uiuc-course-hub:serve:production"
                         }
                     }
                 },
                 "deploy": {
                     "builder": "angular-cli-ghpages:deploy",
                     "options": {
-                        "baseHref": "https://uiucmcs.org",
-                        "cname": "uiucmcs.org",
+                        "baseHref": "uiuc-course-hub.firebaseapp.com",
+                        "cname": "uiuc-course-hub.firebaseapp.com",
                         "noSilent": true
                     }
                 }

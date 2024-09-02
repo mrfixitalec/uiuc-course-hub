@@ -76,6 +76,13 @@
     font-size: 14px;
 }
 
+.chart-label {
+    fill: #626060; 
+    font-family: Arial, sans-serif; 
+    font-size: 13px;
+    font-weight: normal; 
+}
+
 .review-controller {
     display: flex;
     flex-flow: wrap;
@@ -117,7 +124,40 @@
     }
 }
 
+.tooltip {
+    opacity: 0;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid #ccc;
+    padding: 15px;
+    pointer-events: none;
+    z-index: 1000;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+    font-size: 0.9em;
+    color: #333;
+    width: 250px;
+}
+
+
+
 .no-reviews {
     padding-top: 20px;
     text-align: center;
+}
+
+.chart-container {
+    padding: 40px 0;
+}
+
+h3 {
+    margin-top: 2em;
+    margin-bottom: 0px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#gpaChart {
+    margin-top: 20px; 
 }
