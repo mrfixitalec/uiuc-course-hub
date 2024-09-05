@@ -134,7 +134,7 @@
                             "src/sitemap.xml",
                             "src/robots.txt",
                             "src/assets",
-                            "src/assets/gpa-data",
+                            "src/assets/gpa-data"
                         ],
                         "styles": [
                             "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
