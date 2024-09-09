@@ -385,12 +385,18 @@ export class CourseDetailComponent implements OnInit, AfterViewInit {
         this.classService.classes.subscribe(data => {
             this.course = data.find(x => x.ClassName == this.courseName);
             console.log('Retrieved Class Data:', this.course);
-
+            
             if (!this.course) {
                 this.router.navigate(['404']);
             } else {
                 this.courseNumber = this.course!.CourseNumber;
                 this.createGPAChart();
+                this.setTitle()
+                if (this.course.Description) {
+                    this.seoService.updateDescription(this.course.Description);
+                }
+                this.updateCards(this.course!)
+                this.updateGraphicStyles()
             }
         });
     }
