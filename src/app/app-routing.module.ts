@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CourseDetailComponent } from './courses/course-detail/course-detail.component';
 import { CourseGridComponent } from './courses/course-grid/course-grid.component';
 import { CourseListComponent } from './courses/course-list/course-list.component';
+import { CourseAboutComponent } from './courses/course-about/course-about.component';
 import { ReviewDetailComponent } from './reviews/review-detail/review-detail.component';
 import { ReviewsComponent } from './reviews/reviews.component';
 import { CreateReviewComponent } from './reviews/review-create/review-create.component';
@@ -31,7 +32,7 @@ export interface NavItem {
 export const NavInfo = new Map<string, NavItem>([
     ['courses', { title: 'Courses', url: '/', show: true }],
     ['chart', { title: 'Chart', url: '/chart', show: true }],
-    //['grid', { title: 'Grid', url: '/grid', show: true }],
+    ['about', { title: 'About', url: '/about', show: true }],
     ['reviews', { title: 'Reviews', url: '/reviews', show: true }],
     ['createReview', { title: 'Create Review', url: '/createReview', show: false }],
     ['settings', { title: 'Profile', url: '/settings', show: false }],
@@ -55,6 +56,13 @@ export class CustomUrlSerializer implements UrlSerializer {
 }
 
 const routes: Routes = [
+    {
+        path: 'about', component: CourseAboutComponent,
+        data: {
+            title: 'Illini Courses',
+            description: 'Course Reviews and information about courses and professorsy at the University of Illinois at Urbana-Champaign.',
+        }
+    },
     {
         path: '', component: CourseListComponent,
         data: {

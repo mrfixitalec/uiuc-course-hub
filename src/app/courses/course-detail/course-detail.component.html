@@ -17,6 +17,9 @@
               {{season.key | titlecase}}<mat-icon svgIcon="icons:{{season.key}}"></mat-icon>
             </mat-chip>
           </div>
+          <mat-chip [disableRipple]="true" class="chip-hover-disabled" *ngIf="course?.SampleSyllabus">
+            <a href="{{course?.SampleSyllabus}}">HKN Course Page</a>
+          </mat-chip>
         </mat-chip-list>
       </div>
     </div>
@@ -43,7 +46,7 @@
   <div>
     <h3 style="margin-top: 40px;">GPA Data</h3> 
     <div id="gpaChart"></div>
-</div>
+  </div>
   <div *ngIf="reviewData.length">
     <div class="review-controller">
       <div class="next-prev-container">
