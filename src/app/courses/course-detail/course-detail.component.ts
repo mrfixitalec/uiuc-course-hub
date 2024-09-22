@@ -39,7 +39,7 @@ export class CourseDetailComponent implements OnInit, AfterViewInit {
     reviewData: Review[] = [];
     disableNext: boolean = false;
     disablePrev: boolean = false;
-    pageLength: number = 55;
+    pageLength: number = 5;
     maxLength: number = 99999;
     isLoggedIn: boolean = false;
     selectedSort = this.orderByOptions[0];
