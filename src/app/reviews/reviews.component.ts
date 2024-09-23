@@ -1,11 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth/auth.service';
 import { ClassService } from '../services/classes/class.service';
-import { ClassData, courseCategories } from '../shared/class/class'; // Add `courseCategories` import
+import { ClassData, courseCategories, departments } from '../shared/class/class'; // Add `courseCategories` import
 import { Review, ratingsToStrings } from '../shared/review/review';
 import { Firestore, collection } from '@angular/fire/firestore';
 import { DocumentData, getDocs, limit, orderBy, OrderByDirection, 
     query, QueryDocumentSnapshot, startAfter, where } from '@angular/fire/firestore';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+
+interface FilterOption {
+    value: string;
+    view: string;
+  }
 
 @Component({
     selector: 'app-reviews',
@@ -17,7 +25,9 @@ export class ReviewsComponent implements OnInit {
         private afs: Firestore,
         private auth: AuthService,
         private classService: ClassService,
-    ) { }
+    ) { 
+        this.deptOptions = this.makeOptions(departments);
+    }
 
     reviewData: Review[] = []
     latestDoc: any | null = null
@@ -27,8 +37,10 @@ export class ReviewsComponent implements OnInit {
     noMore: boolean = false
     courses: ClassData[] = []
     courseId: string = ''
-    departments = courseCategories // List of departments
-    Department: string = ''
+    public selectedDepartment: string = '';
+    deptControl = new FormControl('');
+    deptOptions: FilterOption[];
+    filteredDeptOptions!: Observable<FilterOption[]>;
     orderByOptions = [
         { displayText: "Newest", field: "timestamp", order: "desc" },
         { displayText: "Oldest", field: "timestamp", order: "asc" },
@@ -41,12 +53,30 @@ export class ReviewsComponent implements OnInit {
     ngOnInit(): void {
         this.auth.isLoggedIn.subscribe(state => { this.isLoggedIn = state })
         this.classService.classes.subscribe(data => { this.courses = data })
+        this.filteredDeptOptions = this.deptControl.valueChanges.pipe(
+            startWith(''),
+            map(value => this._filterDeptOptions(value!))
+          );
         this.initLoad()
     }
 
-    onDepartmentChange(value: any) {
-        this.Department = value
+    public onDepartmentChange(department: string): void {
+        this.selectedDepartment = department;
         this.initLoad()
+      }
+
+    private _filterDeptOptions(value: string): FilterOption[] {
+        const filterValue = value.toLowerCase();
+        return this.deptOptions.filter(option => option.view.toLowerCase().includes(filterValue));
+      }
+
+    makeOptions(cats: string[]): FilterOption[] {
+    return [{ value: '', view: '' }].concat(
+        cats.map((a) => ({
+        value: a,
+        view: a.replace(/MCS |MCSDS /g, ''),
+        }))
+    );
     }
 
     initLoad() {
@@ -72,8 +102,8 @@ export class ReviewsComponent implements OnInit {
         const ref = collection(this.afs, 'Reviews')
 
         var q = query(ref)
-        if (this.Department) {
-            q = query(q, where("Department", "==", this.Department))
+        if (this.selectedDepartment) {
+            q = query(q, where("Department", "==", this.selectedDepartment))
         }
 
         q = query(q,

@@ -1,16 +1,21 @@
 <div class="restrict-width">
   <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center"
    class="filter-container">
-    <div class="filter">
-      <mat-form-field appearance="fill">
-        <mat-label>Department Filter</mat-label>
-        <mat-select [(value)]="selectedDepartmentFilter" (selectionChange)="onDepartmentChange($event.value)">
-          <mat-option *ngFor="let department of departments" [value]="department">
-            {{department}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
+   <div class="filter" fxFlex>
+    <mat-form-field appearance="fill">
+      <mat-label>Department Code</mat-label>
+      <input
+        matInput
+        [formControl]="deptControl"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onDepartmentChange($event.option.value)">
+        <mat-option *ngFor="let option of filteredDeptOptions | async" [value]="option.value">
+          {{ option.view }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
     <div class="filter">
       <mat-form-field appearance="fill">
         <mat-label>Sort by</mat-label>
