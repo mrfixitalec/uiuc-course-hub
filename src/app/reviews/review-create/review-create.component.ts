@@ -112,21 +112,21 @@ export class CreateReviewComponent implements OnInit {
         // Update filtered class names based on selected CourseNumber
         this.reviewForm.controls['CourseNumber'].valueChanges.subscribe(courseNum => {
             this.filterClassNamesByCourseNumber(courseNum);
-            });
+        });
         
         // Update filtered professors based on semester year selection
         this.reviewForm.controls['semyear'].valueChanges.subscribe(sy => {
             this.filteredProfessors = [];
             this.filterProfBySemYear();
-            });
+        });
 
         // Make sure professors gets reset if CourseNumber is changes
         this.reviewForm.controls['ClassName'].valueChanges.subscribe(sy => {
             this.filteredProfessors = [];
             this.filterProfBySemYear();
-            });
+        });
     }
-    
+
     onDepartmentSelected(department: string) {
         if (department) {
           this.fetchCoursesByDepartment(department);
@@ -136,6 +136,11 @@ export class CreateReviewComponent implements OnInit {
     async fetchCoursesByDepartment(department: string) {
         this.courses = await this.classService.getCoursesByDepartment(department);
         this.courses.sort((a, b) => (a.CourseNumber > b.CourseNumber) ? 1 : -1);
+        
+        // remove classes that have already had a review by this person
+        for (let item of this.completedReviews) {
+            this.courses = this.courses.filter(course => course.ClassName != item)
+        }
       }
 
     // Filter departments based on input value
@@ -250,7 +255,7 @@ export class CreateReviewComponent implements OnInit {
         this.completedReviews = []
         for (let item of response.docs) {
             const review = item.data() as Review
-            this.completedReviews.push(review.CourseNumber)
+            this.completedReviews.push(review.ClassName)
         }
     }
 
