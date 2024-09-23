@@ -7,34 +7,45 @@
     <form class="login-form" [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
       <mat-card-content>
 
-        <!-- Department Field -->
-        <mat-form-field id="Department" class="form-field-full-width" floatLabel="always" appearance="outline">
-          <mat-label>Department</mat-label>
-          <input type="text" matInput [matAutocomplete]="auto" formControlName="Department" required>
-          <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let department of departments" [value]="department">
-              {{department}}
-            </mat-option>
-          </mat-autocomplete>
-          <mat-error *ngIf="reviewForm.controls.Department.hasError('required')">
-            Please select or enter a department
-          </mat-error>
-        </mat-form-field>
+      <!-- Department Field -->
+      <mat-form-field id="Department" class="form-field-full-width" floatLabel="always" appearance="outline">
+        <mat-label>Department</mat-label>
+        <input type="text" matInput [matAutocomplete]="auto" formControlName="Department" required>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onDepartmentSelected($event.option.value)">
+          <mat-option *ngFor="let department of filteredDepartments | async" [value]="department">
+            {{department}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="reviewForm.controls.Department.hasError('required')">
+          Please select or enter a department
+        </mat-error>
+      </mat-form-field>
 
-        <!-- ClassName Field -->
-        <mat-form-field id="ClassName" class="form-field-full-width" floatLabel="always" appearance="outline">
-          <mat-label>Course</mat-label>
-          <mat-select formControlName="ClassName" required>
-            <div *ngFor="let course of courses">
-              <mat-option *ngIf="reviewId || !completedReviews.includes(course.ClassName)" [value]="course.ClassName">
-                {{course.ClassName}}
-              </mat-option>
-            </div>
-          </mat-select>
-          <mat-error *ngIf="reviewForm.controls.ClassName.hasError('required')">
-            Please select a course
-          </mat-error>
-        </mat-form-field>
+      <!-- CourseNumber Field -->
+      <mat-form-field id="CourseNumber" class="form-field-full-width" floatLabel="always" appearance="outline">
+        <mat-label>Course</mat-label>
+        <mat-select formControlName="CourseNumber" required>
+          <mat-option *ngFor="let course of courses" [value]="course.CourseNumber">
+            {{course.CourseNumber}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="reviewForm.controls.CourseNumber.hasError('required')">
+          Please select a course
+        </mat-error>
+      </mat-form-field>
+
+      <!-- ClassName Field -->
+      <mat-form-field id="ClassName" class="form-field-full-width" floatLabel="always" appearance="outline">
+        <mat-label>Course Name</mat-label>
+        <mat-select formControlName="ClassName" required>
+          <mat-option *ngFor="let className of filteredClassNames" [value]="className.ClassName">
+            {{ className.ClassName }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="reviewForm.controls.ClassName.hasError('required')">
+          Please select a class name
+        </mat-error>
+      </mat-form-field>
 
         <!-- Semester Field -->
         <mat-form-field id="semester" class="form-field-full-width" floatLabel="always" appearance="outline">

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ClassData } from 'src/app/shared/class/class';
-import { collection, Firestore, onSnapshot } from '@angular/fire/firestore';
+import { collection, Firestore, onSnapshot, query, where, getDocs } from '@angular/fire/firestore';
 import { Observable, ReplaySubject } from 'rxjs';
 
 @Injectable({
@@ -24,4 +24,10 @@ export class ClassService {
             this._classes.next(cities)
         });
     }
+    async getCoursesByDepartment(department: string): Promise<ClassData[]> {
+        const ref = collection(this.afs, 'Class');
+        const q = query(ref, where('Department', '==', department));
+        const querySnapshot = await getDocs(q);
+        return querySnapshot.docs.map(doc => doc.data() as ClassData);
+      }
 }

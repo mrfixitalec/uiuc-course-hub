@@ -12,6 +12,7 @@ import { DialogReviewSubmission } from 'src/app/shared/dialog/review-submission/
 import { DialogReviewTooShort } from 'src/app/shared/dialog/review-too-short/dialog-review-too-short.component';
 import { Review, SemesterYear } from 'src/app/shared/review/review';
 import { FbUser } from 'src/app/shared/user/user';
+import { Observable, startWith, map } from 'rxjs';
 
 @Component({
     selector: 'app-create-review',
@@ -26,6 +27,7 @@ export class CreateReviewComponent implements OnInit {
     loading: boolean = false
     submitted: boolean = false
     departments = depts
+    filteredDepartments!: Observable<string[]>
     pros: string[] = ["test"]
     cons: string[] = []
     currentYear: number = (new Date()).getFullYear()
@@ -42,6 +44,8 @@ export class CreateReviewComponent implements OnInit {
     reviewPlaceholder = 'Pros/Cons, Structure, Grading, Content, Support, etc...'
 
     courses: ClassData[] | undefined
+    filteredCourses: ClassData[] | undefined;
+    filteredClassNames: ClassData[] = [];
     reviewForm: FormGroup = new FormGroup({})
     completedReviews: string[] = []
     userData: FbUser | undefined
@@ -55,7 +59,7 @@ export class CreateReviewComponent implements OnInit {
     wordCountEnforced: boolean = false
 
     constructor(
-        private courseService: ClassService,
+        private classService: ClassService,
         private formBuilder: FormBuilder,
         private auth: AuthService,
         public dialog: MatDialog,
@@ -70,28 +74,72 @@ export class CreateReviewComponent implements OnInit {
 
     ngOnInit(): void {
         for (var i = 0; i < this.years.length; i++) {
-            for (var j = 0; j < this.semesters.length; j++) {
-                this.semesterYears.push(
-                    {
-                        year: this.years[i],
-                        semester: this.semesters[j]
-                    }
-                )
-            }
+          for (var j = 0; j < this.semesters.length; j++) {
+            this.semesterYears.push({ year: this.years[i], semester: this.semesters[j] });
+          }
         }
+
         this.reviewId = this.route.snapshot.paramMap.get('id') || ""
-        this.courseService.classes.subscribe(data => {
-            this.courses = data
-            this.courses.sort((a, b) => (a.ClassName > b.ClassName) ? 1 : -1)
-        })
+        
+        this.reviewForm.get('Department')?.valueChanges.subscribe(department => {
+            if (department) {
+              this.fetchCoursesByDepartment(department);
+            }
+          });
+
         this.auth.userData.subscribe(data => {
             this.userData = data
             this.getUserReviews()
         }).unsubscribe()
         this.initializeReviewForm()
         this.loadReview()
+
+        // Filter departments as user types
+        this.filteredDepartments = this.reviewForm.controls['Department'].valueChanges.pipe(
+            startWith(''),
+            map(value => this._filterDepartments(value || ''))
+        );
+  
+        // Update filtered courses based on selected department
+        this.reviewForm.controls['Department'].valueChanges.subscribe(department => {
+            this.filterCoursesByDepartment(department);
+        });
+
+        // Update filtered class names based on selected CourseNumber
+        this.reviewForm.controls['CourseNumber'].valueChanges.subscribe(courseNum => {
+            this.filterClassNamesByCourseNumber(courseNum);
+            });
+    }
+    
+    onDepartmentSelected(department: string) {
+        if (department) {
+          this.fetchCoursesByDepartment(department);
+        }
+      }
+
+    async fetchCoursesByDepartment(department: string) {
+        this.courses = await this.classService.getCoursesByDepartment(department);
+        this.courses.sort((a, b) => (a.CourseNumber > b.CourseNumber) ? 1 : -1);
+      }
+
+    // Filter departments based on input value
+    private _filterDepartments(value: string): string[] {
+        const filterValue = value.toLowerCase();
+        return this.departments.filter(department => department.toLowerCase().includes(filterValue));
     }
 
+    // Filter courses based on selected department
+    filterCoursesByDepartment(department: string) {
+        if (!this.courses) return;
+        this.filteredCourses = this.courses.filter(course => course.Department === department);
+    }
+
+    // Filter class names based on the selected CourseNumber
+    filterClassNamesByCourseNumber(courseNum: string) {
+        if (!this.courses) return;
+        this.filteredClassNames = this.courses.filter(course => course.CourseNumber === courseNum);
+    }
+  
     async loadReview() {
         if (!this.reviewId) {
             return
@@ -104,7 +152,7 @@ export class CreateReviewComponent implements OnInit {
         var docData = docSnap.data() as Review
         docData.semyear = { semester: docData.semester, year: docData.year }
         this.reviewForm.setValue(docData)
-        this.f.ClassName.disable()
+        this.f.CourseNumber.disable()
     }
 
     async getUserReviews() {
@@ -117,14 +165,15 @@ export class CreateReviewComponent implements OnInit {
         this.completedReviews = []
         for (let item of response.docs) {
             const review = item.data() as Review
-            this.completedReviews.push(review.ClassName)
+            this.completedReviews.push(review.CourseNumber)
         }
     }
 
     initializeReviewForm() {
         this.reviewForm = this.formBuilder.group({
             Department: ['', Validators.required],
-            ClassName: ['', Validators.required],
+            CourseNumber: ['', Validators.required],
+            ClassName: ['', Validators.required],  
             semyear: ['', Validators.required],
             semester: [''],
             year: ['', [Validators.min(2010), Validators.max(this.currentYear + 1)]],
@@ -169,8 +218,8 @@ export class CreateReviewComponent implements OnInit {
     }
 
     async onSubmit() {
-        const ClassName = this.reviewForm.controls['ClassName'].value
-        const course = this.courses?.find(item => item.ClassName === ClassName)
+        const CourseNumber = this.reviewForm.controls['CourseNumber'].value
+        const course = this.courses?.find(item => item.CourseNumber === CourseNumber)
         const classId = course?.courseId
         this.reviewForm.controls['classId'].setValue(classId)
         this.submitted = true
@@ -199,7 +248,7 @@ export class CreateReviewComponent implements OnInit {
     }
 
     openSubmittedDialog(course?: ClassData) {
-        // const classId = this.courses?.find(item => item.ClassName === courseName)?.courseId
+        // const classId = this.courses?.find(item => item.CourseNum === courseName)?.courseId
         const dialogRef = this.dialog.open(DialogReviewSubmission)
         dialogRef.afterClosed().subscribe(result => {
             if (course) {
