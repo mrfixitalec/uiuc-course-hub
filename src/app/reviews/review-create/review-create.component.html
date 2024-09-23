@@ -60,6 +60,19 @@
           </mat-error>
         </mat-form-field>
 
+        <!-- Professor Field -->
+      <mat-form-field id="Professor" class="form-field-full-width" floatLabel="always" appearance="outline">
+        <mat-label>Professor</mat-label>
+        <mat-select formControlName="Professor" required>
+          <mat-option *ngFor="let prof of filteredProfessors" [value]="prof">
+            {{ prof }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="reviewForm.controls.Professor.hasError('required')">
+          Please select a Professor
+        </mat-error>
+      </mat-form-field>
+
         <!-- Difficulty Field -->
         <mat-form-field id="difficulty" class="form-field-full-width" floatLabel="always" appearance="outline">
           <mat-label>Difficulty</mat-label>
@@ -102,6 +115,19 @@
           </mat-error>
         </mat-form-field>
 
+        <!-- Professor Rating Field -->
+        <mat-form-field id="profRating" class="form-field-full-width" floatLabel="always" appearance="outline">
+          <mat-label>Professor Rating</mat-label>
+          <mat-select formControlName="profRating" required>
+            <mat-option *ngFor="let profRating of profRatings" [value]="profRating.value">
+              {{profRating.view}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="reviewForm.controls.profRating.hasError('required')">
+            Please select a rating for your professors
+          </mat-error>
+        </mat-form-field>
+
         <!-- Title Field -->
         <mat-form-field id="title" class="form-field-full-width" floatLabel="always" appearance="outline">
           <mat-label>Title</mat-label>
@@ -114,7 +140,7 @@
 
         <!-- Review Body Field -->
         <mat-form-field id="review" class="form-field-full-width" floatLabel="always" appearance="outline">
-          <mat-label>Review Body</mat-label>
+          <mat-label>Course Review Body</mat-label>
           <textarea matInput type="textarea" rows="12" formControlName="review" required autocomplete="off"
             placeholder="{{reviewPlaceholder}}"></textarea>
           <mat-error *ngIf="reviewForm.controls.review.hasError('required'); else reviewExists">
@@ -122,6 +148,21 @@
           </mat-error>
           <ng-template #reviewExists>
             <mat-error *ngIf="reviewForm.controls.review.hasError('minlength')">
+              Your review is {{ countReviewChars() }} long (it should be at least {{ minReviewCharLength}}).
+            </mat-error>
+          </ng-template>
+        </mat-form-field>
+
+        <!-- Professor Review Body Field -->
+        <mat-form-field id="profReview" class="form-field-full-width" floatLabel="always" appearance="outline">
+          <mat-label>Professor Review Body</mat-label>
+          <textarea matInput type="textarea" rows="12" formControlName="profReview" required autocomplete="off"
+            placeholder="{{profReviewPlaceholder}}"></textarea>
+          <mat-error *ngIf="reviewForm.controls.profReview.hasError('required'); else reviewExists">
+            Please enter a review
+          </mat-error>
+          <ng-template #reviewExists>
+            <mat-error *ngIf="reviewForm.controls.profReview.hasError('minlength')">
               Your review is {{ countReviewChars() }} long (it should be at least {{ minReviewCharLength}}).
             </mat-error>
           </ng-template>

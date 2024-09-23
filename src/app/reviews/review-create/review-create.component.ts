@@ -13,6 +13,7 @@ import { DialogReviewTooShort } from 'src/app/shared/dialog/review-too-short/dia
 import { Review, SemesterYear } from 'src/app/shared/review/review';
 import { FbUser } from 'src/app/shared/user/user';
 import { Observable, startWith, map } from 'rxjs';
+import Papa from 'papaparse';  // Install via npm: npm install papaparse
 
 @Component({
     selector: 'app-create-review',
@@ -38,14 +39,17 @@ export class CreateReviewComponent implements OnInit {
     semesterYears: SemesterYear[] = []
     difficulties = Difficulties
     ratings = Ratings
+    profRatings = Ratings
 
     // reviewPlaceholder = 'The good:\n1.\n2.\n\nThe bad:\n1.\n2.\n\nDetailed Review:\nI highly recommend this course. Here\'s why:'
     // Unfortunately the html5 spec doesn't support multiline placeholders.
     reviewPlaceholder = 'Pros/Cons, Structure, Grading, Content, Support, etc...'
+    profReviewPlaceholder = 'NOTE: professor data is not being displayed on the site yet. Comment on your professor\'s teaching style, availability, grading, etc...'
 
     courses: ClassData[] | undefined
     filteredCourses: ClassData[] | undefined;
     filteredClassNames: ClassData[] = [];
+    filteredProfessors: string[] = []
     reviewForm: FormGroup = new FormGroup({})
     completedReviews: string[] = []
     userData: FbUser | undefined
@@ -109,6 +113,18 @@ export class CreateReviewComponent implements OnInit {
         this.reviewForm.controls['CourseNumber'].valueChanges.subscribe(courseNum => {
             this.filterClassNamesByCourseNumber(courseNum);
             });
+        
+        // Update filtered professors based on semester year selection
+        this.reviewForm.controls['semyear'].valueChanges.subscribe(sy => {
+            this.filteredProfessors = [];
+            this.filterProfBySemYear();
+            });
+
+        // Make sure professors gets reset if CourseNumber is changes
+        this.reviewForm.controls['ClassName'].valueChanges.subscribe(sy => {
+            this.filteredProfessors = [];
+            this.filterProfBySemYear();
+            });
     }
     
     onDepartmentSelected(department: string) {
@@ -131,13 +147,82 @@ export class CreateReviewComponent implements OnInit {
     // Filter courses based on selected department
     filterCoursesByDepartment(department: string) {
         if (!this.courses) return;
-        this.filteredCourses = this.courses.filter(course => course.Department === department);
+        const filteredSet = new Set(this.courses.filter(course => course.Department === department));
+        this.filteredCourses = Array.from(filteredSet);
     }
 
     // Filter class names based on the selected CourseNumber
     filterClassNamesByCourseNumber(courseNum: string) {
         if (!this.courses) return;
-        this.filteredClassNames = this.courses.filter(course => course.CourseNumber === courseNum);
+        const filteredSet = new Set(this.courses.filter(course => course.CourseNumber === courseNum));
+        this.filteredClassNames = Array.from(filteredSet);
+    }
+
+    filterProfBySemYear() {
+        if (!this.reviewForm.controls['semyear']) return;
+        this.loadProfessors();
+    }
+
+    async loadProfessors(): Promise<void> {
+        if (!this.courses) return;
+        const SemYear = this.reviewForm.controls['semyear'].value;
+    
+        const files = [
+            'fa2019.csv', 'fa2020.csv', 'fa2021.csv', 'fa2022.csv', 'fa2023.csv', 
+            'sp2019.csv', 'sp2020.csv', 'sp2021.csv', 'sp2022.csv', 'sp2023.csv', 
+            'su2019.csv', 'su2020.csv', 'su2021.csv', 'su2022.csv', 'su2023.csv',
+        ];
+    
+        await this.loadAndFilterCSV(files, SemYear);
+    
+    }
+
+    // Function to load and filter data from CSV files using Papaparse
+    async loadAndFilterCSV(files: string[], SemYear: any) {
+
+        await Promise.all(files.map(async (file) => {
+            const filePath = `assets/gpa-data/${file}`;
+            const semesterMap: { [key: string]: string } = {
+                'fa': 'Fall',
+                'sp': 'Spring',
+                'su': 'Summer'
+            };
+
+            const semesterCode = file.substring(0, 2);
+            const year = parseInt(file.substring(2, 6), 10);
+            const semester = semesterMap[semesterCode];
+
+            if (SemYear['semester'] === semester && SemYear['year'] === year) {
+                const fileData = await this.loadCSV(filePath);
+                const courseNumber = this.reviewForm.controls["CourseNumber"].value.split(' ')[1];
+                
+                const courseData = fileData.filter(row =>
+                    row['Subject']?.trim() === this.reviewForm.controls["Department"].value &&
+                    (row['Course']?.trim() === courseNumber || row['Course ']?.trim() === courseNumber) &&
+                    row['Course Title']?.trim() === this.reviewForm.controls["ClassName"].value
+                );
+
+                const uniqueProfessors = new Set<string>();
+                courseData.forEach(row => {
+                    if (row['Primary Instructor']) {
+                        uniqueProfessors.add(row['Primary Instructor']);
+                    }
+                });
+                this.filteredProfessors = Array.from(uniqueProfessors);
+            }
+        }));
+    }
+
+    // Utility to load a CSV file using Papaparse
+    loadCSV(filePath: string): Promise<any[]> {
+        return new Promise((resolve, reject) => {
+            Papa.parse(filePath, {
+                download: true,
+                header: true,
+                complete: (result) => resolve(result.data),
+                error: (error) => reject(error)
+            });
+        });
     }
   
     async loadReview() {
@@ -180,8 +265,10 @@ export class CreateReviewComponent implements OnInit {
             difficulty: ['', [Validators.required, Validators.max(this.maxRating), Validators.min(this.minRating)]],
             workload: ['', [Validators.required, Validators.max(this.maxWorkload), Validators.min(this.minWorkload)]],
             rating: ['', [Validators.required, Validators.max(this.maxRating), Validators.min(this.minRating)]],
+            profRating: ['', [Validators.required, Validators.max(this.maxRating), Validators.min(this.minRating)]],
             title: ['', Validators.required],
             review: ['', [Validators.required, Validators.minLength(this.minReviewCharLength)]],
+            profReview: ['', [Validators.required, Validators.minLength(this.minReviewCharLength)]],
             userId: ['', Validators.required],
             timestamp: [new Date(), Validators.required],
             classId: ['', Validators.required],
@@ -189,6 +276,7 @@ export class CreateReviewComponent implements OnInit {
             helpfulNegative: [0, Validators.required],
             wilsonScore: [0.8, Validators.required],
             lastUpdated: [''],
+            Professor: [''],
         });
         this.reviewForm.controls['timestamp'].setValue(new Date());
         this.auth.userData.subscribe(user => {

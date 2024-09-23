@@ -15,19 +15,23 @@ export class ClassService {
     ) {
         const ref = collection(this.afs, 'Class')
         const unsubscribe = onSnapshot(ref, (querySnapshot) => {
-            const cities: ClassData[] = [];
+            const classes: ClassData[] = [];
             querySnapshot.forEach((doc) => {
                 var data = doc.data()
                 data['courseId'] = doc.id
-                cities.push(data as ClassData);
+                classes.push(data as ClassData);
             });
-            this._classes.next(cities)
+            this._classes.next(classes)
         });
     }
     async getCoursesByDepartment(department: string): Promise<ClassData[]> {
         const ref = collection(this.afs, 'Class');
         const q = query(ref, where('Department', '==', department));
         const querySnapshot = await getDocs(q);
-        return querySnapshot.docs.map(doc => doc.data() as ClassData);
-      }
+        return querySnapshot.docs.map(doc => {
+            const data = doc.data() as ClassData;
+            data.courseId = doc.id;
+            return data;
+        });
+    }
 }

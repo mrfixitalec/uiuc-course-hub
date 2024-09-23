@@ -353,7 +353,6 @@ export class CourseDetailComponent implements OnInit, AfterViewInit {
 
     calculatePercentiles(grades: number[]): { start: number, end: number }[] {
         grades.sort((a, b) => a - b);
-        console.log("Sorted Grades:", grades);
 
         const percentiles = [
             { start: grades[0], end: grades[Math.floor(0.95 * grades.length)] },
@@ -362,7 +361,6 @@ export class CourseDetailComponent implements OnInit, AfterViewInit {
             { start: grades[Math.floor(0.25 * grades.length)], end: grades[Math.floor(0.75 * grades.length)] }
         ];
 
-        console.log("Calculated Percentiles:", percentiles);
         return percentiles;
     }
 
