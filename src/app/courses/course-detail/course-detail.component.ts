@@ -89,7 +89,6 @@ export class CourseDetailComponent implements OnInit, AfterViewInit {
             (row['Course']?.trim() === this.course?.CourseNumValue.toString() || row['Course ']?.trim() === this.course?.CourseNumValue.toString())
         );
 
-        console.log('Filtered Data:', filteredData);
 
         if (filteredData.length === 0) return;
 
@@ -179,9 +178,6 @@ export class CourseDetailComponent implements OnInit, AfterViewInit {
             .call(d3.axisTop(x).ticks(5));
 
         aggregatedInstructors.forEach((d, i) => {
-            console.log(`Processing data for instructor: ${d.instructor}`);
-            console.log("Grades:", d.grades);
-            console.log("GPA:", d.gpa);
 
             const percentiles = this.calculatePercentiles(d.grades);
             const deviation = d.gpa - overallAvgGPA;
@@ -382,7 +378,6 @@ export class CourseDetailComponent implements OnInit, AfterViewInit {
     getClassData(): void {
         this.classService.classes.subscribe(data => {
             this.course = data.find(x => x.ClassName == this.courseName);
-            console.log('Retrieved Class Data:', this.course);
             
             if (!this.course) {
                 this.router.navigate(['404']);
