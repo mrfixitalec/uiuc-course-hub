@@ -4,6 +4,7 @@
 /.vscode
 /scripts/*.json
 /.venv
+/src/environments
 
 # firebase Environment
 .firebase/*.cache
