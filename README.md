@@ -1,13 +1,17 @@
-# UIUC MCS
+# UIUC Course Hub (aka illini.courses)
 
-[uiucmcs.org](https://uiucmcs.org) serves information about Computer Science Master's programs at the University of Illinois at Urbana-Champaign (UIUC):
+[illini.courses](https://illini.courses) The unofficial site for all things courses at the University of Illinois Urbana-Champaign (UIUC)
 
-* [Master of Computer Science](https://cs.illinois.edu/academics/graduate/professional-mcs/online-master-computer-science)
-* [Master of Computer Science in Data Science](https://cs.illinois.edu/academics/graduate/professional-mcs/online-master-computer-science-data-science) 
+Feel free to open PRs with bug fixes or requested features. Please see [our about page](https://illini.courses/about) with more info on contributing!
 
 ## Contributors
 
-Original code forked from [MSCSHub](https://github.com/MSCSHub/MSCSHub).
+Original code forked from [uiucmcs.org](https://github.com/uiuc-mcs/uiuc-mcs).
+
+Original-original code forked from [MSCSHub](https://github.com/MSCSHub/MSCSHub).
+
+Made with 💗 in a few weekends by [Alec](https://www.linkedin.com/in/mrfixitalec/), [Sujeet](https://www.linkedin.com/in/sujeet-bh/), and [Avery](https://www.linkedin.com/in/aplote/)
+
 
 ## License
 
