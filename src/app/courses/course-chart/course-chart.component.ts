@@ -116,7 +116,6 @@ export class CourseChartComponent implements OnInit, AfterViewInit {
     }
   
     // Update the chart with filtered data
-    //console.log('Filtered data:', filteredData);
     this.redrawChart(filteredData);
     // Update dataSource with filtered data
     this.dataSource.data = filteredData;

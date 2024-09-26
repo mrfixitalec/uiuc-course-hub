@@ -382,10 +382,8 @@ export class CourseDetailComponent implements OnInit, AfterViewInit {
     }
 
     getClassData(): void {
-        console.log("Getting class data", this.classService.classes);
         this.classService.classes.subscribe(data => {
             this.course = data.find(x => x.ClassName == this.courseName);
-            console.log("data", data, this.course);
             if (!this.course) {
                 this.router.navigate(['404']);
             } else {

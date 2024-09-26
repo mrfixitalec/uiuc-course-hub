@@ -85,7 +85,6 @@ export class CourseListComponent implements AfterViewInit, OnInit {
         return x;
       });
       this.classes = processedData;
-      //this.applyFilters();  // Apply filters initially if needed
       this.dataSource.sort = this.sort;
     });
   }
@@ -107,7 +106,6 @@ export class CourseListComponent implements AfterViewInit, OnInit {
     }
   
     let filteredData = this.classes;
-    console.log('Filtered data:', filteredData);
   
     // Apply department filter
     if (this.deptControl.value) {

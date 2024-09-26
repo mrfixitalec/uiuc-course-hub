@@ -22,7 +22,7 @@ export class ClassService {
             data.courseId = doc.id;
             return data;
         });
-        this._classes = new ReplaySubject(); // Clear the ReplaySubject buffer
+        this._classes = new ReplaySubject(); // TODO: figure out a better way to do this or if this is going to increase # of reads
         this._classes.next(classes) 
         this.classes = this._classes.asObservable();
     }
