@@ -13,10 +13,9 @@
           <input
             matInput
             [formControl]="deptControl"
-            (ngModelChange)="onDeptFilterChange($event)"
             [matAutocomplete]="auto"
           />
-          <mat-autocomplete #auto="matAutocomplete">
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onDeptFilterChange($event.option.value)">
             <mat-option *ngFor="let option of filteredDeptOptions | async" [value]="option.value">
               {{ option.view }}
             </mat-option>

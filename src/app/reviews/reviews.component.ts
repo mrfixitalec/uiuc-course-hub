@@ -52,6 +52,7 @@ export class ReviewsComponent implements OnInit {
 
     ngOnInit(): void {
         this.auth.isLoggedIn.subscribe(state => { this.isLoggedIn = state })
+        this.classService.getClassesByDepartment(this.selectedDepartment)
         this.classService.classes.subscribe(data => { this.courses = data })
         this.filteredDeptOptions = this.deptControl.valueChanges.pipe(
             startWith(''),

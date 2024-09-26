@@ -68,6 +68,7 @@ export class ReviewDetailComponent implements OnInit {
         rev.reviewId = docSnap.id
 
         var courses: ClassData[] = []
+        this.classService.getClassesByDepartment(rev.Department)
         this.classService.classes.subscribe(data => { courses = data })
         const course = courses.find(item => item.courseId == rev.classId)
 
