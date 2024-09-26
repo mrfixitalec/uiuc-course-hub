@@ -59,6 +59,7 @@ export class CourseDetailComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit(): void {
         if (!this.course) {
+            this.repopulateDepartment();
             this.getClassData();
         }
     }
@@ -370,15 +371,19 @@ export class CourseDetailComponent implements OnInit, AfterViewInit {
             this.courseName = param.substring(pos + 1).replace(/-/g, ' ')
         }
         this.auth.isLoggedIn.subscribe(state => { this.isLoggedIn = state });
+        this.repopulateDepartment();
         this.getClassData();
         this.getFirstPage();
         document.getElementsByClassName("mat-drawer-content")[0].scroll(0, 0);
     }
 
+    async repopulateDepartment(): Promise<void> {
+        await this.classService.getClassesByDepartment(this.course?.Department || "");
+    }
+
     getClassData(): void {
         this.classService.classes.subscribe(data => {
             this.course = data.find(x => x.ClassName == this.courseName);
-            
             if (!this.course) {
                 this.router.navigate(['404']);
             } else {

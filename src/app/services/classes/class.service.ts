@@ -12,17 +12,19 @@ export class ClassService {
 
     constructor(
         private afs: Firestore,
-    ) {
+    ) {}
+    async getClassesByDepartment(department: string){
         const ref = collection(this.afs, 'Class')
-        const unsubscribe = onSnapshot(ref, (querySnapshot) => {
-            const classes: ClassData[] = [];
-            querySnapshot.forEach((doc) => {
-                var data = doc.data()
-                data['courseId'] = doc.id
-                classes.push(data as ClassData);
-            });
-            this._classes.next(classes)
+        const q = query(ref, where('Department', '==', department));
+        const querySnapshot = await getDocs(q);
+        const classes: ClassData[] = querySnapshot.docs.map((doc) => {
+            const data = doc.data() as ClassData;
+            data.courseId = doc.id;
+            return data;
         });
+        this._classes = new ReplaySubject(); // TODO: figure out a better way to do this or if this is going to increase # of reads
+        this._classes.next(classes) 
+        this.classes = this._classes.asObservable();
     }
     async getCoursesByDepartment(department: string): Promise<ClassData[]> {
         const ref = collection(this.afs, 'Class');

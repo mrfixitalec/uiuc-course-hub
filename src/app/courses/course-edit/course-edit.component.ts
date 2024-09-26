@@ -35,6 +35,7 @@ export class EditCourseComponent implements OnInit {
             seasonFall: [false, Validators.required],
             languages: [''],
         })
+        this.courseService.getClassesByDepartment(this.courseData?.Department as string)
         this.courseService.classes.subscribe(data => {
             this.courseData = data.find(x => x.ClassName == this.courseName)
             this.f.departments.setValue(this.courseData?.Department)

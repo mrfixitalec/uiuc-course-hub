@@ -75,6 +75,7 @@ export class CourseListComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit(): void {
+    this.courses.getClassesByDepartment(this.deptControl.value || '');
     this.courses.classes.subscribe((data) => {
       const processedData = data.map((x) => {
         x.season_str = [];
@@ -84,7 +85,6 @@ export class CourseListComponent implements AfterViewInit, OnInit {
         return x;
       });
       this.classes = processedData;
-      this.applyFilters();  // Apply filters initially if needed
       this.dataSource.sort = this.sort;
     });
   }
@@ -156,7 +156,19 @@ export class CourseListComponent implements AfterViewInit, OnInit {
     this.dataSource.data = filteredData;
   }
 
-  onDeptFilterChange(value: string): void {
+  async onDeptFilterChange(value: string): Promise<void> {
+    await this.courses.getClassesByDepartment(this.deptControl.value || '');
+    this.courses.classes.subscribe((data) => {
+      const processedData = data.map((x) => {
+        x.season_str = [];
+        if (x.season.fall) x.season_str.push('fall');
+        if (x.season.spring) x.season_str.push('spring');
+        if (x.season.summer) x.season_str.push('summer');
+        return x;
+      });
+      this.classes = processedData;
+      this.dataSource.sort = this.sort;
+    });
     this.applyFilters();
   }
 

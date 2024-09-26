@@ -53,8 +53,33 @@ export class CourseChartComponent implements OnInit, AfterViewInit {
   public departmentOptions: any[] = [''].concat(courseCategories); // Example department codes
   public courseLevelOptions: any[] = ['',100, 200, 300, 400, 500, 600]; // Example course levels
 
-  public onDepartmentChange(department: string): void {
+  public async onDepartmentChange(department: string): Promise<void> {
     this.selectedDepartment = department;
+    await this.courses.getClassesByDepartment(this.deptControl.value || '');
+    this.courses.classes.subscribe((data) => {
+      const processedData = data.map((x) => {
+        x.season_str = [];
+        if (x.season.fall) x.season_str.push('fall');
+        if (x.season.spring) x.season_str.push('spring');
+        if (x.season.summer) x.season_str.push('summer');
+        return x;
+      });
+      this.classes = processedData;
+
+      this.courseData = data.map(classData => ({
+        label: classData.CourseNumber,
+        data: [{
+          x: classData.DifficultyAvg,
+          y: classData.RatingAvg,
+          r: classData.RatingCount,
+        }],
+        backgroundColor: randomColor(),
+        classData: classData,
+      }));
+
+      //this.applyFilters();  // Apply filters initially if needed
+      this.dataSource.sort = this.sort;
+    });
     this.applyFilters();
   }
   
@@ -91,7 +116,6 @@ export class CourseChartComponent implements OnInit, AfterViewInit {
     }
   
     // Update the chart with filtered data
-    //console.log('Filtered data:', filteredData);
     this.redrawChart(filteredData);
     // Update dataSource with filtered data
     this.dataSource.data = filteredData;
@@ -105,6 +129,7 @@ export class CourseChartComponent implements OnInit, AfterViewInit {
   }
 
   public ngAfterViewInit(): void {
+    this.courses.getClassesByDepartment(this.deptControl.value || '');
     this.courses.classes.subscribe((data) => {
       const processedData = data.map((x) => {
         x.season_str = [];
@@ -126,7 +151,7 @@ export class CourseChartComponent implements OnInit, AfterViewInit {
         classData: classData,
       }));
 
-      this.applyFilters();  // Apply filters initially if needed
+      //this.applyFilters();  // Apply filters initially if needed
       this.dataSource.sort = this.sort;
     });
   }
